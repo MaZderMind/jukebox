@@ -408,7 +408,7 @@ F 3 "" H 15750 4450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 15750 3500 2    50   ~ 0
-P3V3_HAT
+P3V3
 Wire Wire Line
 	15400 3800 15750 3800
 Wire Wire Line
@@ -418,7 +418,7 @@ Wire Wire Line
 Wire Wire Line
 	15400 4150 15750 4150
 Text Label 15750 4150 2    50   ~ 0
-P3V3_HAT
+P3V3
 $Comp
 L raspberrypi_hat:CM1293A U5
 U 1 1 5DFD9B2F
@@ -668,7 +668,7 @@ Wire Wire Line
 Wire Wire Line
 	15400 5100 15750 5100
 Text Label 15750 4800 2    50   ~ 0
-P3V3_HAT
+P3V3
 $Comp
 L power:GND #PWR013
 U 1 1 5E2165C5
@@ -880,7 +880,7 @@ Wire Wire Line
 Wire Wire Line
 	13650 1950 13650 2200
 Text Label 15750 1550 2    50   ~ 0
-P3V3_HAT
+P3V3
 $Comp
 L power:GND #PWR012
 U 1 1 5E207EF9
@@ -962,9 +962,9 @@ Wire Wire Line
 Wire Wire Line
 	15400 3150 15750 3150
 Text Label 15750 2200 2    50   ~ 0
-P3V3_HAT
+P3V3
 Text Label 15750 2850 2    50   ~ 0
-P3V3_HAT
+P3V3
 $Comp
 L power:GND #PWR08
 U 1 1 5E039FA9
@@ -1536,7 +1536,7 @@ Wire Wire Line
 Wire Wire Line
 	2000 2250 800  2250
 Text Label 800  2250 0    60   ~ 0
-P3V3_HAT
+P3V3
 Wire Wire Line
 	2000 2650 800  2650
 Text Label 800  2650 0    60   ~ 0
@@ -1755,4 +1755,32 @@ Wire Wire Line
 	7850 5800 7850 6300
 Wire Wire Line
 	5950 5000 5950 5400
+Wire Wire Line
+	2000 3050 800  3050
+Text Label 800  3050 0    50   ~ 0
+P3V3
+$Comp
+L Connector:TestPoint TP?
+U 1 1 5FDCE731
+P 9200 4400
+F 0 "TP?" V 9154 4588 50  0000 L CNN
+F 1 "TP_GND" V 9245 4588 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D2.0mm" H 9400 4400 50  0001 C CNN
+F 3 "~" H 9400 4400 50  0001 C CNN
+	1    9200 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FDD5B14
+P 8850 4400
+F 0 "#PWR?" H 8850 4150 50  0001 C CNN
+F 1 "GND" V 8855 4272 50  0000 R CNN
+F 2 "" H 8850 4400 50  0001 C CNN
+F 3 "" H 8850 4400 50  0001 C CNN
+	1    8850 4400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8850 4400 9200 4400
 $EndSCHEMATC
