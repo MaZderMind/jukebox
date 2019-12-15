@@ -13,8 +13,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 2800 7000 2    60   ~ 0
-P3V3
+Text Label 3000 7000 2    60   ~ 0
+P3V3_HAT
 $Comp
 L raspberrypi_hat:CAT24C32 U1
 U 1 1 58E1713F
@@ -97,18 +97,18 @@ $EndComp
 $Comp
 L Device:R R29
 U 1 1 58E19E51
-P 1550 6250
-F 0 "R29" V 1630 6250 50  0000 C CNN
-F 1 "10K" V 1550 6250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 1480 6250 50  0001 C CNN
-F 3 "" H 1550 6250 50  0001 C CNN
-	1    1550 6250
+P 1400 6250
+F 0 "R29" V 1480 6250 50  0000 C CNN
+F 1 "10K" V 1400 6250 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 1330 6250 50  0001 C CNN
+F 3 "" H 1400 6250 50  0001 C CNN
+	1    1400 6250
 	-1   0    0    1   
 $EndComp
-Text Label 2400 5350 2    60   ~ 0
-P3V3
+Text Label 2550 5350 2    60   ~ 0
+P3V3_HAT
 Wire Wire Line
-	2100 5350 2400 5350
+	2100 5350 2550 5350
 Wire Wire Line
 	2100 5350 2100 5450
 $Comp
@@ -161,12 +161,12 @@ F 3 "" H 2100 6350 50  0000 C CNN
 $EndComp
 Wire Wire Line
 	2100 6250 2100 6350
-Text Label 1800 6550 2    60   ~ 0
-P3V3
+Text Label 1900 6550 2    60   ~ 0
+P3V3_HAT
 Wire Wire Line
-	1800 6550 1550 6550
+	1900 6550 1400 6550
 Wire Wire Line
-	1550 6550 1550 6400
+	1400 6550 1400 6400
 Wire Wire Line
 	1050 5650 1050 5750
 Connection ~ 1300 5650
@@ -175,15 +175,15 @@ Wire Wire Line
 Wire Wire Line
 	1950 7000 2000 7000
 Wire Wire Line
-	2450 7000 2800 7000
+	2450 7000 3000 7000
 Wire Wire Line
 	1300 5750 1300 5850
 Wire Wire Line
 	1300 5650 1600 5650
 Wire Wire Line
-	1550 6050 1600 6050
+	1400 6050 1600 6050
 Wire Wire Line
-	1550 6050 1550 6100
+	1400 6050 1400 6100
 Wire Wire Line
 	950  6150 950  6200
 Text Notes 8800 900  0    118  ~ 24
@@ -427,8 +427,6 @@ F 3 "" H 15100 3800 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	11150 2050 12350 2050
-Wire Wire Line
 	13650 2600 13650 2850
 Wire Wire Line
 	11150 2600 12800 2600
@@ -464,19 +462,8 @@ Wire Wire Line
 Wire Wire Line
 	11900 1750 11900 5200
 Wire Wire Line
-	11150 1950 12250 1950
-Wire Wire Line
 	12000 1850 12000 5200
-Wire Wire Line
-	12250 5200 12250 1950
-Connection ~ 12250 1950
-Wire Wire Line
-	12250 1950 13650 1950
-Wire Wire Line
-	12350 5200 12350 2050
-Connection ~ 12350 2050
-Wire Wire Line
-	12350 2050 13550 2050
+Connection ~ 12350 1950
 Wire Wire Line
 	12450 5200 12450 2400
 Wire Wire Line
@@ -865,16 +852,8 @@ Wire Wire Line
 	14750 5600 14750 5800
 Text Label 14750 5800 0    50   ~ 0
 ANY_KEY
-Connection ~ 12450 2400
-Connection ~ 12550 2500
 Connection ~ 11700 1550
 Connection ~ 11800 1650
-Connection ~ 11900 1750
-Connection ~ 12000 1850
-Wire Wire Line
-	13550 2050 13550 2300
-Wire Wire Line
-	13650 1950 13650 2200
 Text Label 15750 1550 2    50   ~ 0
 P3V3
 $Comp
@@ -893,14 +872,6 @@ Wire Wire Line
 Wire Wire Line
 	15400 1550 15750 1550
 Wire Wire Line
-	12550 2500 14800 2500
-Wire Wire Line
-	12450 2400 14800 2400
-Wire Wire Line
-	12000 1850 14800 1850
-Wire Wire Line
-	11900 1750 14800 1750
-Wire Wire Line
 	11800 1650 14800 1650
 Wire Wire Line
 	11700 1550 14800 1550
@@ -912,10 +883,6 @@ Wire Wire Line
 	13550 2950 14800 2950
 Wire Wire Line
 	13650 2850 14800 2850
-Wire Wire Line
-	13550 2300 14800 2300
-Wire Wire Line
-	13650 2200 14800 2200
 $Comp
 L raspberrypi_hat:CM1293A U2
 U 1 1 5DFD5EC5
@@ -1426,7 +1393,7 @@ Text Label 11150 8350 0    50   ~ 0
 IO_INT_A
 Text Label 950  6050 0    50   ~ 0
 WP
-Connection ~ 1550 6050
+Connection ~ 1400 6050
 Wire Wire Line
 	7850 4950 7850 5400
 Wire Wire Line
@@ -1649,17 +1616,6 @@ Wire Wire Line
 	6400 2600 6550 2600
 Text Label 7150 2600 2    60   ~ 0
 P5V_HAT
-$Comp
-L raspberrypi_hat:OX40HAT J3
-U 1 1 58DFC771
-P 2600 2250
-F 0 "J3" H 2950 2350 50  0000 C CNN
-F 1 "40HAT" H 2300 2350 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical" H 2600 2450 50  0001 C CNN
-F 3 "" H 1900 2250 50  0000 C CNN
-	1    2600 2250
-	1    0    0    -1  
-$EndComp
 Text Notes 850  1250 0    100  ~ 0
 This is based on the official Raspberry Pi spec to be able to call an extension board a HAT.\nhttps://github.com/raspberrypi/hats/blob/master/designguide.md
 Text Notes 10400 7100 0    60   ~ 0
@@ -1834,7 +1790,6 @@ P5V
 Wire Wire Line
 	9400 5150 9650 5150
 NoConn ~ 2000 2250
-NoConn ~ 2000 3050
 Text Label 9650 5150 2    50   ~ 0
 P3V3
 Wire Wire Line
@@ -2609,7 +2564,7 @@ ADR2
 Text Label 6650 9150 0    50   ~ 0
 VNRG
 Wire Wire Line
-	950  6050 1550 6050
+	950  6050 1400 6050
 $Comp
 L power:GNDA #PWR0101
 U 1 1 62ADA7D3
@@ -2639,12 +2594,12 @@ Wire Wire Line
 Text Label 2500 10350 2    50   ~ 0
 PWM1
 $Comp
-L Device:Jumper_NC_Small JP?
+L Device:Jumper_NC_Small JP1
 U 1 1 5E1ADCE1
 P 9250 4300
-F 0 "JP?" H 9250 4421 50  0001 C CNN
+F 0 "JP1" H 9250 4421 50  0001 C CNN
 F 1 "Jumper_NC_Small" H 9250 4421 50  0001 C CNN
-F 2 "" H 9250 4300 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged2Bar_RoundedPad1.0x1.5mm" H 9250 4300 50  0001 C CNN
 F 3 "~" H 9250 4300 50  0001 C CNN
 	1    9250 4300
 	1    0    0    -1  
@@ -2658,4 +2613,56 @@ Wire Wire Line
 	9000 4300 9000 4400
 Wire Wire Line
 	9450 4300 9350 4300
+$Comp
+L raspberrypi_hat:OX40HAT J3
+U 1 1 58DFC771
+P 2600 2250
+F 0 "J3" H 2950 2350 50  0000 C CNN
+F 1 "40HAT" H 2300 2350 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical" H 2600 2450 50  0001 C CNN
+F 3 "" H 1900 2250 50  0000 C CNN
+	1    2600 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 3050 800  3050
+Text Label 800  3050 0    50   ~ 0
+P3V3_HAT
+Connection ~ 12000 1850
+Wire Wire Line
+	12000 1850 14800 1850
+Connection ~ 11900 1750
+Wire Wire Line
+	11900 1750 14800 1750
+Wire Wire Line
+	12350 1950 13650 1950
+Wire Wire Line
+	11150 1950 12350 1950
+Wire Wire Line
+	11150 2050 12250 2050
+Wire Wire Line
+	12350 1950 12350 5200
+Wire Wire Line
+	12250 2050 12250 5200
+Connection ~ 12250 2050
+Wire Wire Line
+	12250 2050 13550 2050
+Wire Wire Line
+	14800 2400 13550 2400
+Wire Wire Line
+	13550 2050 13550 2400
+Wire Wire Line
+	14800 2500 13650 2500
+Wire Wire Line
+	13650 1950 13650 2500
+Wire Wire Line
+	14800 2200 12450 2200
+Wire Wire Line
+	12450 2200 12450 2400
+Connection ~ 12450 2400
+Wire Wire Line
+	12550 2500 12550 2300
+Wire Wire Line
+	12550 2300 14800 2300
+Connection ~ 12550 2500
 $EndSCHEMATC
