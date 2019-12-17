@@ -202,8 +202,6 @@ F 3 "~" H 8700 2050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8900 1850 9300 1850
-Wire Wire Line
 	8900 1950 9000 1950
 Wire Wire Line
 	8900 2150 9000 2150
@@ -1502,10 +1500,10 @@ Text Notes 1650 2000 0    118  ~ 24
 40-Pin HAT Connector
 Connection ~ 6550 2600
 Wire Wire Line
-	6550 3000 6550 2600
+	6550 3000 6550 2750
 Connection ~ 5750 2600
 Wire Wire Line
-	5750 3000 5750 2600
+	5750 3000 5750 2750
 Connection ~ 6050 3550
 Wire Wire Line
 	6250 3550 6250 3200
@@ -1661,7 +1659,7 @@ L Connector:TestPoint TP2
 U 1 1 5FDCE731
 P 9000 4200
 F 0 "TP2" V 8954 4388 50  0000 L CNN
-F 1 "TP_GND" V 9045 4388 50  0000 L CNN
+F 1 "GND" V 9045 4388 50  0000 L CNN
 F 2 "TestPoint:TestPoint_Pad_D2.0mm" H 9200 4200 50  0001 C CNN
 F 3 "~" H 9200 4200 50  0001 C CNN
 	1    9000 4200
@@ -1821,12 +1819,12 @@ $EndComp
 $Comp
 L power:GNDA #PWR0106
 U 1 1 6024E074
-P 9450 4300
-F 0 "#PWR0106" H 9450 4050 50  0001 C CNN
-F 1 "GNDA" V 9455 4173 50  0000 R CNN
-F 2 "" H 9450 4300 50  0001 C CNN
-F 3 "" H 9450 4300 50  0001 C CNN
-	1    9450 4300
+P 9450 4400
+F 0 "#PWR0106" H 9450 4150 50  0001 C CNN
+F 1 "GNDA" V 9455 4273 50  0000 R CNN
+F 2 "" H 9450 4400 50  0001 C CNN
+F 3 "" H 9450 4400 50  0001 C CNN
+	1    9450 4400
 	0    -1   -1   0   
 $EndComp
 Text Notes 8500 4700 0    50   ~ 0
@@ -1845,7 +1843,7 @@ F 3 "http://www.ti.com/lit/ds/symlink/pcm5122.pdf" H 5950 9500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 7300 7550 0    50   ~ 0
-(!) Remove Groundplane (!)\nbeween Output-Channels0\nto avoid crosstalk
+(!) Remove Groundplane (!)\nbeween Output-Channels\nto avoid crosstalk
 Wire Wire Line
 	10750 9250 10750 9150
 Wire Wire Line
@@ -2666,14 +2664,92 @@ Wire Wire Line
 	12550 2300 14800 2300
 Connection ~ 12550 2500
 $Comp
-L Graphic:Logo_Open_Hardware_Small #LOGO1
+L Graphic:Logo_Open_Hardware_Small OSHW1
 U 1 1 5E8DC3DA
 P 11550 11000
-F 0 "#LOGO1" H 11550 11500 50  0001 C CNN
+F 0 "OSHW1" H 11550 11500 50  0001 C CNN
 F 1 "Logo_Open_Hardware_Large" H 11550 10600 50  0001 C CNN
 F 2 "Symbol:OSHW-Logo2_7.3x6mm_SilkScreen" H 11550 11000 50  0001 C CNN
 F 3 "~" H 11550 11000 50  0001 C CNN
 	1    11550 11000
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:TestPoint TP3
+U 1 1 5EA57104
+P 5500 2750
+F 0 "TP3" V 5454 2938 50  0000 L CNN
+F 1 "P5V" V 5545 2938 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D2.0mm" H 5700 2750 50  0001 C CNN
+F 3 "~" H 5700 2750 50  0001 C CNN
+	1    5500 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5EA97686
+P 6850 2750
+F 0 "TP1" V 6804 2938 50  0000 L CNN
+F 1 "P5V_HAT" V 6895 2938 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D2.0mm" H 7050 2750 50  0001 C CNN
+F 3 "~" H 7050 2750 50  0001 C CNN
+	1    6850 2750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6850 2750 6550 2750
+Connection ~ 6550 2750
+Wire Wire Line
+	6550 2750 6550 2600
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5EACB533
+P 9400 5300
+F 0 "TP4" V 9354 5488 50  0000 L CNN
+F 1 "P3V3" V 9445 5488 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D2.0mm" H 9600 5300 50  0001 C CNN
+F 3 "~" H 9600 5300 50  0001 C CNN
+	1    9400 5300
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP5
+U 1 1 5EACDD2D
+P 9400 6200
+F 0 "TP5" V 9354 6388 50  0000 L CNN
+F 1 "P3V3A" V 9445 6388 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D2.0mm" H 9600 6200 50  0001 C CNN
+F 3 "~" H 9600 6200 50  0001 C CNN
+	1    9400 6200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9400 6200 9400 6050
+Connection ~ 9400 6050
+Wire Wire Line
+	9400 5300 9400 5150
+Connection ~ 9400 5150
+$Comp
+L Connector:TestPoint TP6
+U 1 1 5EB41904
+P 9450 4200
+F 0 "TP6" V 9404 4388 50  0000 L CNN
+F 1 "GNDA" V 9495 4388 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D2.0mm" H 9650 4200 50  0001 C CNN
+F 3 "~" H 9650 4200 50  0001 C CNN
+	1    9450 4200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9450 4200 9450 4300
+Wire Wire Line
+	9450 4300 9450 4400
+Connection ~ 9450 4300
+Wire Wire Line
+	8900 1850 9300 1850
+Wire Wire Line
+	5500 2750 5750 2750
+Connection ~ 5750 2750
+Wire Wire Line
+	5750 2750 5750 2600
 $EndSCHEMATC
