@@ -978,7 +978,7 @@ F 3 "~" H 6750 7050 50  0001 C CNN
 	1    6750 7050
 	1    0    0    -1  
 $EndComp
-Text Label 8200 6750 2    50   ~ 0
+Text Label 8300 6750 2    50   ~ 0
 PANEL_SOLENOID_OUT
 Text Label 5150 7050 0    50   ~ 0
 SOLENOID_CTRL
@@ -1701,28 +1701,6 @@ Wire Wire Line
 	7700 9750 8050 9750
 Wire Wire Line
 	7700 9850 8050 9850
-$Comp
-L Device:R R7
-U 1 1 6191B59F
-P 8200 9750
-F 0 "R7" V 8100 9750 50  0000 C CNN
-F 1 "470R" V 8200 9750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 8130 9750 50  0001 C CNN
-F 3 "~" H 8200 9750 50  0001 C CNN
-	1    8200 9750
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R9
-U 1 1 6191BF3D
-P 8200 9850
-F 0 "R9" V 8300 9850 50  0000 C CNN
-F 1 "470R" V 8200 9850 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 8130 9850 50  0001 C CNN
-F 3 "~" H 8200 9850 50  0001 C CNN
-	1    8200 9850
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	8350 9850 8500 9850
 $Comp
@@ -2114,21 +2092,6 @@ Wire Wire Line
 	5500 9900 5500 9850
 Wire Wire Line
 	5500 9850 6300 9850
-Text Label 8200 4950 2    50   ~ 0
-PANEL_30V_OUT
-Text Label 5150 4950 0    50   ~ 0
-P30V
-$Comp
-L Device:R R4
-U 1 1 5F9056BF
-P 6800 5100
-F 0 "R4" H 6900 5100 50  0000 C CNN
-F 1 "10k" V 6800 5100 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 6730 5100 50  0001 C CNN
-F 3 "~" H 6800 5100 50  0001 C CNN
-	1    6800 5100
-	-1   0    0    1   
-$EndComp
 Text Label 5150 5750 0    50   ~ 0
 PANEL_CTRL
 $Comp
@@ -2187,17 +2150,7 @@ F 3 "~" H 6800 5400 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	6800 4950 7000 4950
-Wire Wire Line
-	6800 5250 7000 5250
-Connection ~ 6800 5250
-Wire Wire Line
-	7550 4950 8200 4950
-Wire Wire Line
 	6100 5750 5750 5750
-Wire Wire Line
-	6800 4950 5150 4950
-Connection ~ 6800 4950
 Wire Wire Line
 	6800 5950 6800 6350
 $Comp
@@ -2251,34 +2204,6 @@ Wire Wire Line
 Wire Wire Line
 	6550 7050 6500 7050
 Connection ~ 6500 7050
-$Comp
-L Device:D_Zener D5
-U 1 1 5E9D3265
-P 7000 5100
-F 0 "D5" V 6954 5179 50  0000 L CNN
-F 1 "?" V 7045 5179 50  0000 L CNN
-F 2 "Diode_SMD:D_0805_2012Metric" H 7000 5100 50  0001 C CNN
-F 3 "~" H 7000 5100 50  0001 C CNN
-	1    7000 5100
-	0    1    1    0   
-$EndComp
-Connection ~ 7000 4950
-Wire Wire Line
-	7000 4950 7150 4950
-Connection ~ 7000 5250
-Wire Wire Line
-	7000 5250 7350 5250
-$Comp
-L Device:Q_PMOS_GSD Q4
-U 1 1 5E8CB29E
-P 7350 5050
-F 0 "Q4" V 7300 5150 50  0000 L CNN
-F 1 "?" V 7600 5050 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 7550 5150 50  0001 C CNN
-F 3 "~" H 7350 5050 50  0001 C CNN
-	1    7350 5050
-	0    1    -1   0   
-$EndComp
 $Comp
 L power:PWR_FLAG #FLG0105
 U 1 1 5EABF9FE
@@ -2539,7 +2464,7 @@ Wire Wire Line
 Wire Wire Line
 	6850 6850 6850 6750
 Wire Wire Line
-	6850 6750 8200 6750
+	6850 6750 8300 6750
 $Comp
 L Graphic:Logo_Open_Hardware_Small OSHW1
 U 1 1 5E8DC3DA
@@ -3076,4 +3001,79 @@ F 3 "~" H 5900 6000 50  0001 C CNN
 	1    5900 6000
 	-1   0    0    1   
 $EndComp
+$Comp
+L Device:R R9
+U 1 1 6191BF3D
+P 8200 9850
+F 0 "R9" V 8300 9850 50  0000 C CNN
+F 1 "470R" V 8200 9850 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8130 9850 50  0001 C CNN
+F 3 "~" H 8200 9850 50  0001 C CNN
+	1    8200 9850
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 6191B59F
+P 8200 9750
+F 0 "R7" V 8100 9750 50  0000 C CNN
+F 1 "470R" V 8200 9750 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8130 9750 50  0001 C CNN
+F 3 "~" H 8200 9750 50  0001 C CNN
+	1    8200 9750
+	0    1    1    0   
+$EndComp
+Connection ~ 7000 5250
+Connection ~ 6800 5250
+Wire Wire Line
+	7000 5250 7450 5250
+Wire Wire Line
+	6800 5250 7000 5250
+$Comp
+L Device:Q_PMOS_GSD Q4
+U 1 1 5E8CB29E
+P 7450 5050
+F 0 "Q4" V 7400 5150 50  0000 L CNN
+F 1 "DMP510DL" V 7700 4850 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7650 5150 50  0001 C CNN
+F 3 "~" H 7450 5050 50  0001 C CNN
+	1    7450 5050
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	7000 4950 7250 4950
+Connection ~ 7000 4950
+$Comp
+L Device:D_Zener D5
+U 1 1 5E9D3265
+P 7000 5100
+F 0 "D5" V 6954 5179 50  0000 L CNN
+F 1 "10V" V 7045 5179 50  0000 L CNN
+F 2 "Diode_SMD:D_0805_2012Metric" H 7000 5100 50  0001 C CNN
+F 3 "~" H 7000 5100 50  0001 C CNN
+	1    7000 5100
+	0    1    1    0   
+$EndComp
+Connection ~ 6800 4950
+Wire Wire Line
+	6800 4950 5150 4950
+Wire Wire Line
+	7650 4950 8300 4950
+Wire Wire Line
+	6800 4950 7000 4950
+$Comp
+L Device:R R4
+U 1 1 5F9056BF
+P 6800 5100
+F 0 "R4" H 6900 5100 50  0000 C CNN
+F 1 "10k" V 6800 5100 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 6730 5100 50  0001 C CNN
+F 3 "~" H 6800 5100 50  0001 C CNN
+	1    6800 5100
+	-1   0    0    1   
+$EndComp
+Text Label 5150 4950 0    50   ~ 0
+P30V
+Text Label 8300 4950 2    50   ~ 0
+PANEL_30V_OUT
 $EndSCHEMATC
