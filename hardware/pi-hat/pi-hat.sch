@@ -568,9 +568,9 @@ Text Label 11900 5800 2    50   ~ 0
 C
 Text Label 12000 5800 2    50   ~ 0
 D
-Text Label 12250 5800 2    50   ~ 0
-E
 Text Label 12350 5800 2    50   ~ 0
+E
+Text Label 12250 5800 2    50   ~ 0
 F
 Text Label 12450 5800 2    50   ~ 0
 G
