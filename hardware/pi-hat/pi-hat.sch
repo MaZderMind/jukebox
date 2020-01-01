@@ -1341,11 +1341,11 @@ Text Label 800  3350 0    50   ~ 0
 SPI_CLK
 Wire Wire Line
 	2000 3350 800  3350
-Text Label 800  3250 0    50   ~ 0
+Text Label 800  3150 0    50   ~ 0
 SPI_MOSI
 Wire Wire Line
 	2000 3250 800  3250
-Text Label 800  3150 0    50   ~ 0
+Text Label 800  3250 0    50   ~ 0
 SPI_MISO
 Wire Wire Line
 	2000 3150 800  3150
