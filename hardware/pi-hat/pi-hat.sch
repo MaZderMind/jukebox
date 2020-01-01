@@ -1074,36 +1074,36 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf" H 14700 7350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	11500 7650 11150 7650
-Text Label 11150 7650 0    50   ~ 0
-SPI_CS
+	11500 7650 11100 7650
+Text Label 11100 7650 0    50   ~ 0
+SPI_CS_U8
 Wire Wire Line
-	13800 7650 13450 7650
-Text Label 13450 7650 0    50   ~ 0
-SPI_CS
+	13800 7650 13400 7650
+Text Label 13400 7650 0    50   ~ 0
+SPI_CS_U9
 Wire Wire Line
-	11500 7750 11150 7750
+	11500 7750 11100 7750
 Wire Wire Line
-	11500 7850 11150 7850
+	11500 7850 11100 7850
 Wire Wire Line
-	11500 7950 11150 7950
+	11500 7950 11100 7950
 Wire Wire Line
-	13800 7750 13450 7750
+	13800 7750 13400 7750
 Wire Wire Line
-	13800 7850 13450 7850
+	13800 7850 13400 7850
 Wire Wire Line
-	13800 7950 13450 7950
-Text Label 11150 7750 0    50   ~ 0
+	13800 7950 13400 7950
+Text Label 11100 7750 0    50   ~ 0
 SPI_CLK
-Text Label 13450 7750 0    50   ~ 0
+Text Label 13400 7750 0    50   ~ 0
 SPI_CLK
-Text Label 13450 7850 0    50   ~ 0
+Text Label 13400 7850 0    50   ~ 0
 SPI_MOSI
-Text Label 13450 7950 0    50   ~ 0
+Text Label 13400 7950 0    50   ~ 0
 SPI_MISO
-Text Label 11150 7850 0    50   ~ 0
+Text Label 11100 7850 0    50   ~ 0
 SPI_MOSI
-Text Label 11150 7950 0    50   ~ 0
+Text Label 11100 7950 0    50   ~ 0
 SPI_MISO
 Wire Wire Line
 	11500 9050 11400 9050
@@ -1131,21 +1131,21 @@ F 3 "" H 11400 9350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	13800 9050 13550 9050
+	13800 9050 13650 9050
 Wire Wire Line
-	13550 9050 13550 9150
+	13650 9050 13650 9150
 Wire Wire Line
-	13550 9150 13800 9150
-Connection ~ 13550 9150
+	13650 9150 13800 9150
+Connection ~ 13650 9150
 $Comp
 L power:GND #PWR022
 U 1 1 5ED61602
-P 13550 9350
-F 0 "#PWR022" H 13550 9100 50  0001 C CNN
-F 1 "GND" H 13555 9177 50  0000 C CNN
-F 2 "" H 13550 9350 50  0001 C CNN
-F 3 "" H 13550 9350 50  0001 C CNN
-	1    13550 9350
+P 13650 9350
+F 0 "#PWR022" H 13650 9100 50  0001 C CNN
+F 1 "GND" H 13655 9177 50  0000 C CNN
+F 2 "" H 13650 9350 50  0001 C CNN
+F 3 "" H 13650 9350 50  0001 C CNN
+	1    13650 9350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1318,25 +1318,25 @@ Wire Wire Line
 	13800 8250 13750 8250
 Wire Wire Line
 	11500 8250 11450 8250
-Text Label 13450 8350 0    50   ~ 0
-IO_INT_B
-Text Label 11150 8350 0    50   ~ 0
-IO_INT_A
+Text Label 13400 8350 0    50   ~ 0
+INT_U9
+Text Label 11100 8350 0    50   ~ 0
+INT_U8
 Text Label 950  6050 0    50   ~ 0
 WP
 Connection ~ 1400 6050
 Wire Wire Line
-	11150 8350 11500 8350
+	11100 8350 11500 8350
 Wire Wire Line
-	13450 8350 13800 8350
+	13400 8350 13800 8350
 NoConn ~ 11450 8250
 NoConn ~ 13750 8250
 Text Label 4400 3050 2    50   ~ 0
-IO_INT_A
+INT_U8
 Wire Wire Line
 	3200 3050 4400 3050
 Text Label 4400 3350 2    50   ~ 0
-SPI_CS
+SPI_CS_U8
 Text Label 800  3350 0    50   ~ 0
 SPI_CLK
 Wire Wire Line
@@ -1550,13 +1550,7 @@ This is based on the official Raspberry Pi spec to be able to call an extension 
 Text Notes 10400 7100 0    60   ~ 0
 The MCP23S17 (SPI 16bit Port Extender) is used to drive and read from the Panel-IOs\nand to drive the Panel-Power FETs. This device supports an Address-Based selection mode:\nonly the Chip-Select is used for both chips;  The Interrupt-Mirror-Feature is used, to only\nhave one Interrupt for all 4 Banks.
 Wire Wire Line
-	13550 9150 13550 9350
-Text Label 13750 9400 1    50   ~ 0
-P3V3
-Wire Wire Line
-	13800 9250 13750 9250
-Wire Wire Line
-	13750 9250 13750 9400
+	13650 9150 13650 9250
 Wire Wire Line
 	5200 5250 5200 5650
 $Comp
@@ -1622,7 +1616,6 @@ NoConn ~ 2000 2950
 NoConn ~ 3200 2550
 NoConn ~ 3200 2650
 NoConn ~ 3200 2950
-NoConn ~ 3200 3450
 NoConn ~ 2000 3650
 NoConn ~ 2000 3750
 NoConn ~ 2000 4050
@@ -1636,30 +1629,6 @@ Wire Wire Line
 	2000 2350 800  2350
 NoConn ~ 3200 3950
 NoConn ~ 3200 4050
-$Comp
-L Device:R R5
-U 1 1 6008075B
-P 10750 9400
-F 0 "R5" H 10680 9354 50  0000 R CNN
-F 1 "10k" V 10750 9450 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 10680 9400 50  0001 C CNN
-F 3 "~" H 10750 9400 50  0001 C CNN
-	1    10750 9400
-	-1   0    0    1   
-$EndComp
-Text Label 10450 9150 0    50   ~ 0
-SPI_CS
-$Comp
-L power:GND #PWR0103
-U 1 1 6009D89B
-P 10750 9550
-F 0 "#PWR0103" H 10750 9300 50  0001 C CNN
-F 1 "GND" H 10755 9377 50  0000 C CNN
-F 2 "" H 10750 9550 50  0001 C CNN
-F 3 "" H 10750 9550 50  0001 C CNN
-	1    10750 9550
-	1    0    0    -1  
-$EndComp
 $Comp
 L Regulator_Linear:L78L33_SOT89 U10
 U 1 1 6011F75B
@@ -1749,10 +1718,6 @@ F 3 "http://www.ti.com/lit/ds/symlink/pcm5122.pdf" H 5950 9500 50  0001 C CNN
 $EndComp
 Text Notes 7300 7550 0    50   ~ 0
 (!) Remove Groundplane (!)\nbeween Output-Channels\nto avoid crosstalk
-Wire Wire Line
-	10750 9250 10750 9150
-Wire Wire Line
-	10750 9150 10450 9150
 Wire Wire Line
 	6050 7550 6050 7450
 Text Label 6700 7450 2    50   ~ 0
@@ -2369,7 +2334,7 @@ The System-Clock SCK is generated with a PLL internally.\nAlternatively one can 
 Wire Wire Line
 	3200 3250 4400 3250
 Text Label 4400 3250 2    50   ~ 0
-IO_INT_B
+INT_U9
 Text Label 4500 8550 0    50   ~ 0
 P3V3
 $Comp
@@ -2511,17 +2476,6 @@ Wire Wire Line
 	9000 4300 9000 4400
 Wire Wire Line
 	9450 4300 9350 4300
-$Comp
-L raspberrypi_hat:OX40HAT J3
-U 1 1 58DFC771
-P 2600 2250
-F 0 "J3" H 2950 2350 50  0000 C CNN
-F 1 "40HAT" H 2300 2350 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical" H 2600 2450 50  0001 C CNN
-F 3 "" H 1900 2250 50  0000 C CNN
-	1    2600 2250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2000 3050 800  3050
 Text Label 800  3050 0    50   ~ 0
@@ -2910,4 +2864,80 @@ Text Label 13700 8650 0    50   ~ 0
 P3V3
 Text Label 11400 8650 0    50   ~ 0
 P3V3
+$Comp
+L raspberrypi_hat:OX40HAT J3
+U 1 1 58DFC771
+P 2600 2250
+F 0 "J3" H 2950 2350 50  0000 C CNN
+F 1 "40HAT" H 2300 2350 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical" H 2600 2450 50  0001 C CNN
+F 3 "" H 1900 2250 50  0000 C CNN
+	1    2600 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 3450 4400 3450
+Text Label 4400 3450 2    50   ~ 0
+SPI_CS_U9
+Wire Wire Line
+	10750 9150 10300 9150
+Wire Wire Line
+	10750 9250 10750 9150
+$Comp
+L power:GND #PWR0103
+U 1 1 6009D89B
+P 10750 9550
+F 0 "#PWR0103" H 10750 9300 50  0001 C CNN
+F 1 "GND" H 10755 9377 50  0000 C CNN
+F 2 "" H 10750 9550 50  0001 C CNN
+F 3 "" H 10750 9550 50  0001 C CNN
+	1    10750 9550
+	1    0    0    -1  
+$EndComp
+Text Label 10300 9150 0    50   ~ 0
+SPI_CS_U8
+$Comp
+L Device:R R5
+U 1 1 6008075B
+P 10750 9400
+F 0 "R5" H 10680 9354 50  0000 R CNN
+F 1 "10k" V 10750 9450 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 10680 9400 50  0001 C CNN
+F 3 "~" H 10750 9400 50  0001 C CNN
+	1    10750 9400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10750 10000 10300 10000
+Wire Wire Line
+	10750 10100 10750 10000
+$Comp
+L power:GND #PWR0123
+U 1 1 5E20864A
+P 10750 10400
+F 0 "#PWR0123" H 10750 10150 50  0001 C CNN
+F 1 "GND" H 10755 10227 50  0000 C CNN
+F 2 "" H 10750 10400 50  0001 C CNN
+F 3 "" H 10750 10400 50  0001 C CNN
+	1    10750 10400
+	1    0    0    -1  
+$EndComp
+Text Label 10300 10000 0    50   ~ 0
+SPI_CS_U9
+$Comp
+L Device:R R17
+U 1 1 5E208651
+P 10750 10250
+F 0 "R17" H 10680 10204 50  0000 R CNN
+F 1 "10k" V 10750 10300 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 10680 10250 50  0001 C CNN
+F 3 "~" H 10750 10250 50  0001 C CNN
+	1    10750 10250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	13650 9250 13800 9250
+Connection ~ 13650 9250
+Wire Wire Line
+	13650 9250 13650 9350
 $EndSCHEMATC
