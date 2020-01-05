@@ -2069,14 +2069,6 @@ Wire Wire Line
 Connection ~ 12400 3450
 Wire Wire Line
 	9650 2450 10050 2450
-Wire Wire Line
-	5500 9750 5500 9700
-Wire Wire Line
-	5500 9750 6300 9750
-Wire Wire Line
-	5500 9900 5500 9850
-Wire Wire Line
-	5500 9850 6300 9850
 Text Label 5150 5950 0    50   ~ 0
 PANEL_CTRL
 $Comp
@@ -3158,18 +3150,8 @@ Wire Wire Line
 	10250 7850 10250 8000
 Connection ~ 10250 7850
 Wire Wire Line
-	5250 9900 5500 9900
+	6300 9750 5750 9750
 Wire Wire Line
-	5500 9700 5250 9700
-$Comp
-L Device:Jumper_NO_Small JP2
-U 1 1 5DFD09F1
-P 5250 9800
-F 0 "JP2" V 5250 9848 50  0000 L CNN
-F 1 "Jumper_NO_Small" V 5295 9848 50  0001 L CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5250 9800 50  0001 C CNN
-F 3 "~" H 5250 9800 50  0001 C CNN
-	1    5250 9800
-	0    1    1    0   
-$EndComp
+	6300 9850 5750 9850
+NoConn ~ 5750 9750
 $EndSCHEMATC
