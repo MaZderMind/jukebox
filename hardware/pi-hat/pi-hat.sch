@@ -2277,7 +2277,7 @@ U 1 1 5E92A759
 P 9450 2450
 F 0 "J1" H 9550 2100 50  0000 C CNN
 F 1 "PWR_IN" H 9550 2200 50  0000 C CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" H 9450 2450 50  0001 C CNN
+F 2 "project_footprints:WUERTH-2-5mm" H 9450 2450 50  0001 C CNN
 F 3 "~" H 9450 2450 50  0001 C CNN
 	1    9450 2450
 	1    0    0    -1  
