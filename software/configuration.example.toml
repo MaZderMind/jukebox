@@ -1,0 +1,52 @@
+[spotify]
+client_id = ""
+client_secret = ""
+username = ""
+device_name = "Jukebox"
+
+[actions]
+# A: Techno & House
+A1 = "spotify:playlist:37i9dQZF1DX6GJXiuZRisr" # Night Rider
+A2 = "spotify:playlist:5S33MuzhWWNW57z49eBSui" # Progressive House
+A3 = "spotify:playlist:3oRNodhtGLVnZl0Q32FJHB" # Deep House
+A4 = "spotify:playlist:37i9dQZF1DX5xiztvBdlUf" # Truely Deeply House
+A5 = "spotify:playlist:37i9dQZF1DXaXB8fQg7xif" # Dance Party
+A6 = "spotify:playlist:37i9dQZF1DXbX3zSzB4MO0" # Club Beats
+A7 = "spotify:playlist:5awU7dImY2OenjRFfN8WKD" # Happy Hardcore
+A8 = "spotify:playlist:0DIpxrBwqAhJGOe41kYrVz" # Synthwave / Retrowave
+
+# B: Chillout
+B1 = "spotify:playlist:37i9dQZF1DWTvNyxOwkztu" # Chillout Lounge
+B2 = "spotify:playlist:37i9dQZF1DX82pCGH5USnM" # Lounge - Soft House
+B3 = "spotify:playlist:37i9dQZF1DX6KItbiYYmAv" # Kaffeehausmusik
+B4 = "spotify:playlist:77vsvVJ7iWB1ySfDGh1SUP" # Acustic Covers
+B5 = "spotify:playlist:6Ph4rUXJKhOdrrKxSgK2ig" # Abient Lounge Electro
+
+# C: Country
+C1 = "spotify:playlist:37i9dQZF1DWXi7h4mmmkzD" # Country Nights
+C2 = "spotify:playlist:37i9dQZF1DX8WMG8VPSOJC" # Country kind of Love
+C3 = "spotify:playlist:37i9dQZF1DWYiR2Uqcon0X" # Country Coffehouse
+C4 = "spotify:playlist:3GZOrKmxHmGJAGCqKMd8DW" # Country Gals
+C5 = "spotify:playlist:37i9dQZF1DXdgnLr18vPvu" # Tailgate Party
+C6 = "spotify:playlist:37i9dQZF1DX8S0uQvJ4gaa" # New Boots
+C7 = "spotify:playlist:37i9dQZF1DX3Ee0ngF5ZVQ" # Texas Music
+
+# D: Folk
+D1  = "spotify:playlist:4IfL5hySiXJXJApGRmOrfA" # Irisch / Gälisch / Keltisch
+
+# E: Classic
+E1 = "spotify:playlist:37i9dQZF1DWXjW0VX1e9y1" # Archangelo Corelli - Compsoer Weekly #110
+E2 = "spotify:playlist:37i9dQZF1DX4sWSpwq3LiO" # Peacful Piano
+
+
+
+# P: Radio
+P1 = "radio:hrinforadio"
+P2 = "radio:swr3"
+P3 = "radio:swr1"
+P4 = "radio:youfm"
+P5 = "radio:rocklandradio"
+
+# Q: Nachrichten
+Q1 = "news:tagesthemen"
+Q2 = "news:tagesschau"

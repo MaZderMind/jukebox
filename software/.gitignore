@@ -1,0 +1,10 @@
+/*.iml
+/.idea/
+/.vscode/
+
+/configuration.toml
+/venv
+/env
+
+__pycache__
+*.pyc
