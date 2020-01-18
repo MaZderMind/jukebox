@@ -1,0 +1,300 @@
+/*
+ * Device Tree overlay for MaZderMind's Jukebox
+ *
+ */
+
+/dts-v1/;
+/plugin/;
+/{
+	compatible = "brcm,bcm2708";
+
+	fragment@0 {
+		target = <&spi0>;
+		__overlay__ {
+			status = "okay";
+
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			spidev@0{
+				status = "disabled";
+			};
+
+			spidev@1{
+				status = "disabled";
+			};
+
+			mcp23s17_u8: mcp23s17@0 {
+				compatible = "microchip,mcp23s17";
+				status = "okay";
+
+				gpio-controller;
+				#gpio-cells = <2>;
+
+				interrupt-parent = <&gpio>;
+				interrupts = <24 0x2>;
+				interrupt-controller;
+				microchip,irq-mirror;
+				#interrupt-cells=<2>;
+
+				microchip,spi-present-mask = <0x01>;
+				reg = <0>;
+
+				spi-max-frequency = <10000000>;
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&u8_state_default>;
+
+				u8_state_default: pinmux {
+					pins = "gpio0", "gpio1", "gpio2", "gpio3",
+					       "gpio4", "gpio5", "gpio6", "gpio7",
+					       "gpio8", "gpio9", "gpio10", "gpio11",
+					       "gpio12", "gpio13", "gpio14", "gpio15";
+
+					bias-pull-up;
+				};
+			};
+
+			mcp23s17_u9: mcp23s17@1 {
+				compatible = "microchip,mcp23s17";
+				status = "okay";
+
+				gpio-controller;
+				#gpio-cells = <2>;
+
+				interrupt-parent = <&gpio>;
+				interrupts = <25 0x2>;
+				interrupt-controller;
+				microchip,irq-mirror;
+				#interrupt-cells=<2>;
+
+				microchip,spi-present-mask = <0x01>;
+				reg = <1>;
+
+				spi-max-frequency = <10000000>;
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&u9_state_default>;
+
+				u9_state_default: pinmux {
+					pins = "gpio8", "gpio9", "gpio10", "gpio11",
+					       "gpio12", "gpio13", "gpio14", "gpio15";
+
+					bias-pull-up;
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&leds>;
+		__overlay__ {
+			compatible = "gpio-leds";
+
+			solenoid: solenoid {
+				label = "solenoid";
+				gpios = <&mcp23s17_u9 0 0>;
+				default-state = "off";
+			};
+			panel: panel {
+				label = "panel";
+				gpios = <&mcp23s17_u9 1 0>;
+				default-state = "off";
+			};
+			led_play: led_play {
+				label = "led_play";
+				gpios = <&mcp23s17_u9 6 0>;
+				default-state = "off";
+			};
+			led_ready: led_ready {
+				label = "led_ready";
+				gpios = <&mcp23s17_u9 7 0>;
+				default-state = "off";
+			};
+		};
+	};
+
+	fragment@2 {
+		target-path = "/";
+		__overlay__ {
+			keypad: panel_keys {
+				compatible = "gpio-keys";
+				debounce-interval = "15"; /* Die alten Taster sind sehr Bouncy */
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				button@2 {
+					label = "2";
+					linux,code = <3>;
+					gpios = <&mcp23s17_u9 8 0x1>;
+				};
+				button@3 {
+					label = "3";
+					linux,code = <4>;
+					gpios = <&mcp23s17_u9 9 0x1>;
+				};
+				button@4 {
+					label = "4";
+					linux,code = <5>;
+					gpios = <&mcp23s17_u9 10 0x1>;
+				};
+				button@5 {
+					label = "5";
+					linux,code = <6>;
+					gpios = <&mcp23s17_u9 11 0x1>;
+				};
+				button@6 {
+					label = "6";
+					linux,code = <7>;
+					gpios = <&mcp23s17_u9 12 0x1>;
+				};
+				button@7 {
+					label = "7";
+					linux,code = <8>;
+					gpios = <&mcp23s17_u9 13 0x1>;
+				};
+				button@8 {
+					label = "8";
+					linux,code = <9>;
+					gpios = <&mcp23s17_u9 14 0x1>;
+				};
+				button@any_key {
+					label = "any_key";
+					linux,code = <11>; /* KEY_0 */
+					gpios = <&mcp23s17_u9 15 0x0>; /* Active High */
+				};
+
+				button@j {
+					label = "j";
+					linux,code = <36>;
+					gpios = <&mcp23s17_u8 0 0x1>;
+				};
+				button@k {
+					label = "k";
+					linux,code = <37>;
+					gpios = <&mcp23s17_u8 1 0x1>;
+				};
+				button@l {
+					label = "l";
+					linux,code = <38>;
+					gpios = <&mcp23s17_u8 2 0x1>;
+				};
+				button@m {
+					label = "m";
+					linux,code = <50>;
+					gpios = <&mcp23s17_u8 3 0x1>;
+				};
+				button@n {
+					label = "n";
+					linux,code = <49>;
+					gpios = <&mcp23s17_u8 4 0x1>;
+				};
+				button@o {
+					label = "o";
+					linux,code = <24>;
+					gpios = <&mcp23s17_u8 5 0x1>;
+				};
+				button@p {
+					label = "p";
+					linux,code = <25>;
+					gpios = <&mcp23s17_u8 6 0x1>;
+				};
+				button@q {
+					label = "q";
+					linux,code = <16>;
+					gpios = <&mcp23s17_u8 7 0x1>;
+				};
+
+				button@a {
+					label = "a";
+					linux,code = <30>;
+					gpios = <&mcp23s17_u8 8 0x1>;
+				};
+				button@b {
+					label = "b";
+					linux,code = <48>;
+					gpios = <&mcp23s17_u8 9 0x1>;
+				};
+				button@c {
+					label = "c";
+					linux,code = <46>;
+					gpios = <&mcp23s17_u8 10 0x1>;
+				};
+				button@d {
+					label = "c";
+					linux,code = <32>;
+					gpios = <&mcp23s17_u8 11 0x1>;
+				};
+				button@e {
+					label = "e";
+					linux,code = <18>;
+					gpios = <&mcp23s17_u8 12 0x1>;
+				};
+				button@f {
+					label = "f";
+					linux,code = <33>;
+					gpios = <&mcp23s17_u8 13 0x1>;
+				};
+				button@g {
+					label = "g";
+					linux,code = <34>;
+					gpios = <&mcp23s17_u8 14 0x1>;
+				};
+				button@h {
+					label = "h";
+					linux,code = <35>;
+					gpios = <&mcp23s17_u8 15 0x1>;
+				};
+			};
+		};
+	};
+
+	fragment@3 {
+		target-path = "/clocks";
+		__overlay__ {
+			dacpro_osc: dacpro_osc {
+				compatible = "hifiberry,dacpro-clk";
+				#clock-cells = <0>;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&i2s>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@5 {
+		target = <&i2c1>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			pcm5122@4d {
+				#sound-dai-cells = <0>;
+				compatible = "ti,pcm5122";
+				reg = <0x4d>;
+				clocks = <&dacpro_osc>;
+				status = "okay";
+			};
+		};
+	};
+
+	fragment@6 {
+		target = <&sound>;
+		hifiberry_dacplus: __overlay__ {
+			compatible = "hifiberry,hifiberry-dacplus";
+			i2s-controller = <&i2s>;
+			status = "okay";
+		};
+	};
+
+	__overrides__ {
+		24db_digital_gain =
+			<&hifiberry_dacplus>,"hifiberry,24db_digital_gain?";
+		slave = <&hifiberry_dacplus>,"hifiberry-dacplus,slave?";
+	};
+};
