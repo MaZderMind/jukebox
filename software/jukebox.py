@@ -1,43 +1,60 @@
 #!/usr/bin/env python3
-import os.path
+import asyncio
 
-import spotipy
-import spotipy.util as util
+import evdev
 import toml
 
+from control import Control
+from keys import Keys
+from playback import Playback
+
 conf = toml.load("configuration.toml")
-scope = 'user-modify-playback-state,user-read-playback-state,user-read-currently-playing'
-cache_dir = '~/.config/jukebox/'
 
-cache_dir = os.path.expanduser(cache_dir)
-os.makedirs(cache_dir, exist_ok=True)
+keys = Keys()
+control = Control()
+playback = Playback(conf)
 
-token = util.prompt_for_user_token(
-    conf['spotify']['username'],
-    scope,
-    client_id=conf['spotify']['client_id'],
-    client_secret=conf['spotify']['client_secret'],
-    redirect_uri='http://localhost/',
-    cache_path=os.path.join(cache_dir, 'spotify-token-cache-' + conf['spotify']['username']))
 
-spotify = spotipy.Spotify(auth=token)
+async def handle_keys():
+    panel_name = conf['panel']['input_device_name']
+    panel_devices = [
+        evdev.InputDevice(dev) for dev in evdev.list_devices() if
+        evdev.InputDevice(dev).name == panel_name
+    ]
+    if len(panel_devices) == 0:
+        panel_names = [
+            evdev.InputDevice(dev).name for dev in evdev.list_devices()
+        ]
+        print("no input-device with name", conf['panel']['input_device_name'],
+              "found. The folloging devides are registered", panel_names)
+        return
 
-all_devices = spotify.devices()['devices']
-device_info = next(device for device in all_devices
-                   if device['name'].lower() == conf['spotify']['device_name'].lower())
+    panel_device = panel_devices[0]
 
-# print('found device', device_info)
+    # noinspection PyUnresolvedReferences
+    async for ev in panel_device.async_read_loop():
+        print(repr(ev))
 
-playlist_uri = 'spotify:playlist:37i9dQZF1DX6GJXiuZRisr'  # Night Rider
-# playlist_uri = 'spotify:playlist:37i9dQZF1DWYfQ0uxBYM90' # 60s
 
-# spotify.start_playback(device_id=device_info['id'], context_uri=playlist_uri)
-# spotify.pause_playback(device_id=device_info['id'])
-# spotify.volume(50, device_id=device_info['id'])
+async def handle_playback_state_changes():
+    while True:
+        print("polling playback-state")
+        await asyncio.sleep(1)
 
-playback = spotify.current_playback()
-is_playing = playback['is_playing']
-is_playing_correct_playlist = playback['context']['uri'] == playlist_uri
-is_playing_on_device = playback['device']['id'] == device_info['id']
-print('is_playing', is_playing, 'is_playing_correct_playlist', is_playing_correct_playlist, 'is_playing_on_device',
-      is_playing_on_device)
+
+async def handle_timeout_timer():
+    while True:
+        print("checking for timeout")
+        await asyncio.sleep(1)
+
+
+async def main():
+    await asyncio.wait([
+        handle_keys(),
+        handle_playback_state_changes(),
+        handle_timeout_timer()
+    ], return_when=asyncio.FIRST_COMPLETED)
+
+
+if __name__ == '__main__':
+    asyncio.run(main())
