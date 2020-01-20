@@ -1,12 +1,15 @@
 class Control(object):
-    def readyLed(self, onoff):
+    def set_ready_led(self, onoff):
         pass
 
-    def playLed(self, onoff):
+    def set_play_led(self, onoff):
         pass
 
-    def solenoid(self, onff):
+    def set_solenoid(self, onff):
         pass
 
-    def panel(self, onoff):
+    def is_panel_on(self):
+        return False
+
+    def set_panel(self, onoff):
         pass

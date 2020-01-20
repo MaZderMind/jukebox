@@ -10,3 +10,6 @@ class Playback(object):
 
     def pause(self):
         pass
+
+    def is_playing(self):
+        return False

@@ -1,60 +1,87 @@
 #!/usr/bin/env python3
 import asyncio
+import signal
+from datetime import datetime
 
-import evdev
 import toml
 
 from control import Control
 from keys import Keys
+from leds import Leds
 from playback import Playback
 
-conf = toml.load("configuration.toml")
 
-keys = Keys()
-control = Control()
-playback = Playback(conf)
+class Main(object):
+    def __init__(self):
+        conf = toml.load("configuration.toml")
 
+        self.keys = Keys(conf['panel'])
+        self.control = Control()
+        self.playback = Playback(conf)
+        self.leds = Leds()
 
-async def handle_keys():
-    panel_name = conf['panel']['input_device_name']
-    panel_devices = [
-        evdev.InputDevice(dev) for dev in evdev.list_devices() if
-        evdev.InputDevice(dev).name == panel_name
-    ]
-    if len(panel_devices) == 0:
-        panel_names = [
-            evdev.InputDevice(dev).name for dev in evdev.list_devices()
-        ]
-        print("no input-device with name", conf['panel']['input_device_name'],
-              "found. The folloging devides are registered", panel_names)
-        return
+        self.last_activity = datetime.now()
 
-    panel_device = panel_devices[0]
+    async def run(self):
+        self.system_on()
+        await asyncio.wait([
+            self.handle_keys(),
+            self.handle_playback_state_changes(),
+            self.handle_timeout_timer()
+        ], return_when=asyncio.FIRST_COMPLETED)
+        self.system_off()
 
-    # noinspection PyUnresolvedReferences
-    async for ev in panel_device.async_read_loop():
-        print(repr(ev))
+    def system_on(self):
+        self.control.set_ready_led(True)
+        self.control.set_play_led(False)
+        self.control.set_solenoid(False)
+        self.control.set_panel(False)
+        self.leds.blackout()
 
+    def system_off(self):
+        self.control.set_ready_led(False)
+        self.control.set_play_led(False)
+        self.control.set_solenoid(False)
+        self.control.set_panel(False)
+        self.leds.blackout()
 
-async def handle_playback_state_changes():
-    while True:
-        print("polling playback-state")
-        await asyncio.sleep(1)
+    async def handle_keys(self):
+        print("opening Panel-Input-Device")
+        await self.keys.open_device()
 
+        async for valid_key_combo in self.keys.wait_for_event():
+            self.reset_timeout()
+            if not self.control.is_panel_on():
+                print("key pressed, turning panel on")
+                self.control.set_panel(True)
+                self.leds.idle()
 
-async def handle_timeout_timer():
-    while True:
-        print("checking for timeout")
-        await asyncio.sleep(1)
+            if valid_key_combo is not None:
+                print("valid key-combo", valid_key_combo, "detected, starting playback")
+                self.playback.start(valid_key_combo)
+                self.leds.show(valid_key_combo)
 
+            elif self.playback.is_playing():
+                print("no valid key-combo detected, pausing playback")
+                self.playback.pause()
+                self.leds.idle()
 
-async def main():
-    await asyncio.wait([
-        handle_keys(),
-        handle_playback_state_changes(),
-        handle_timeout_timer()
-    ], return_when=asyncio.FIRST_COMPLETED)
+    def reset_timeout(self):
+        # print("resetting timeout")
+        self.last_activity = datetime.now()
+
+    async def handle_playback_state_changes(self):
+        while True:
+            # print("polling playback-state")
+            await asyncio.sleep(1)
+
+    async def handle_timeout_timer(self):
+        while True:
+            # print("checking for timeout")
+            await asyncio.sleep(1)
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    main = Main()
+    signal.signal(signal.SIGINT, main.system_off)
+    asyncio.run(main.run())
