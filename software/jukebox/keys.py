@@ -36,7 +36,7 @@ class Keys(object):
     async def get_valid_key_combo(self):
         # wait some time for number-keys to settle and avoid "bouncing" between
         # the any-key "key_0" and the other number-keys
-        await asyncio.sleep(0.125)
+        await asyncio.sleep(0.0125)
 
         active_keys = self.panel_device.active_keys()
         return Keys.keys_to_key_combo(active_keys)
