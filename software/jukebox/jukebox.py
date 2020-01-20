@@ -5,6 +5,7 @@ import sys
 from datetime import datetime, timedelta
 
 import toml
+
 from control import Control
 from keys import Keys
 from leds import Leds
@@ -105,7 +106,7 @@ class Main(object):
 
             if self.control.is_panel_on() and is_timed_out and not self.playback.is_playing():
                 print("no activitiy since", self.last_activity,
-                      "(over", self.conf['panel']['timeout_minutes'], "minutes, turning panel off")
+                      "(over", self.conf['panel']['timeout_minutes'], "minutes), turning panel off")
                 self.control.set_panel(False)
                 self.leds.blackout()
 

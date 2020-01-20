@@ -43,7 +43,6 @@ class Keys(object):
 
     @classmethod
     def keys_to_key_combo(cls, active_keys):
-        # FIXME 1 handling
         alpha_keycodes = [evdev.ecodes.KEY_A, evdev.ecodes.KEY_B, evdev.ecodes.KEY_C, evdev.ecodes.KEY_D,
                           evdev.ecodes.KEY_E, evdev.ecodes.KEY_F, evdev.ecodes.KEY_G, evdev.ecodes.KEY_H, None,
                           evdev.ecodes.KEY_J, evdev.ecodes.KEY_K, evdev.ecodes.KEY_L, evdev.ecodes.KEY_M,
