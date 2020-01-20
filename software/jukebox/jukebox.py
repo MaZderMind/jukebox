@@ -5,7 +5,6 @@ import sys
 from datetime import datetime, timedelta
 
 import toml
-
 from control import Control
 from keys import Keys
 from leds import Leds
@@ -87,10 +86,6 @@ class Main(object):
                 self.control.set_play_led(False)
                 self.leds.idle()
 
-    def reset_timeout(self):
-        # print("resetting timeout")
-        self.last_activity = datetime.now()
-
     async def handle_playback_state_changes(self):
         while True:
             await asyncio.sleep(5)
@@ -113,6 +108,9 @@ class Main(object):
                       "(over", self.conf['panel']['timeout_minutes'], "minutes, turning panel off")
                 self.control.set_panel(False)
                 self.leds.blackout()
+
+    def reset_timeout(self):
+        self.last_activity = datetime.now()
 
 
 if __name__ == '__main__':

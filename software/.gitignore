@@ -2,7 +2,7 @@
 /.idea/
 /.vscode/
 
-/configuration.toml
+configuration.toml
 /venv
 /env
 
