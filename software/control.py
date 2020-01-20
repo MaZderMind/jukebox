@@ -1,15 +1,43 @@
+import asyncio
+
+
+def _read(led):
+    with open("/sys/class/leds/" + led + "/brightness", 'r') as io:
+        r = io.read().strip()
+        return r != "0"
+
+
+def _write(led, onoff):
+    with open("/sys/class/leds/" + led + "/brightness", 'w') as io:
+        io.write("255" if onoff else "0")
+
+
+def _write_blinking(led, onoff):
+    with open("/sys/class/leds/" + led + "/trigger", 'w') as io:
+        io.write("timer" if onoff else "none")
+
+
 class Control(object):
     def set_ready_led(self, onoff):
-        pass
+        _write('led_ready', onoff)
 
     def set_play_led(self, onoff):
-        pass
+        _write_blinking('led_play', onoff)
 
-    def set_solenoid(self, onff):
-        pass
+    def set_solenoid(self, onoff):
+        _write('solenoid', onoff)
+
+    def is_solenoid_on(self):
+        return _read('solenoid')
+
+    async def eject_solenoid(self):
+        if self.is_solenoid_on():
+            self.set_solenoid(False)
+            await asyncio.sleep(0.25)
+            self.set_solenoid(True)
 
     def is_panel_on(self):
-        return False
+        return _read('panel')
 
     def set_panel(self, onoff):
-        pass
+        _write('panel', onoff)

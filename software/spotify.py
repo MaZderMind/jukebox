@@ -13,6 +13,7 @@ class Spotify(object):
         self.device = None
 
     def login(self):
+        print("logging into spotify connect account")
         token = self._acquire_token()
         self.spotify = spotipy.Spotify(auth=token)
         self.device = self._find_device()
@@ -44,7 +45,7 @@ class Spotify(object):
         self.currently_playing_uri = uri
         self.spotify.start_playback(device_id=self.device['id'], context_uri=uri)
 
-    def pause(self, uri):
+    def pause(self):
         self.currently_playing_uri = None
         self.spotify.pause_playback(device_id=self.device['id'])
 

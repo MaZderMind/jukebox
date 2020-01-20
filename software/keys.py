@@ -1,9 +1,11 @@
+import asyncio
+
 import evdev
 
 
 class Keys(object):
     def __init__(self, conf):
-        self.conf = conf
+        self.conf = conf['panel']
         self.panel_device = None
 
     async def open_device(self):
@@ -18,10 +20,7 @@ class Keys(object):
             self.print_missing_device_error()
             raise KeysError()
 
-        panel_device = panel_device[0]
-        panel_device.repeat = [0, 0]
-
-        self.panel_device = panel_device
+        self.panel_device = panel_device[0]
 
     def print_missing_device_error(self):
         panel_names = [
@@ -31,14 +30,16 @@ class Keys(object):
               "found. The folloging devides are registered", panel_names)
 
     async def wait_for_event(self):
-        last_active_keys = None
-
         async for event in self.panel_device.async_read_loop():
-            active_keys = self.panel_device.active_keys()
+            yield event
 
-            if active_keys != last_active_keys:
-                yield Keys.keys_to_key_combo(active_keys)
-                last_active_keys = active_keys
+    async def get_valid_key_combo(self):
+        # wait some time for number-keys to settle and avoid "bouncing" between
+        # the any-key "key_0" and the other number-keys
+        await asyncio.sleep(0.125)
+
+        active_keys = self.panel_device.active_keys()
+        return Keys.keys_to_key_combo(active_keys)
 
     @classmethod
     def keys_to_key_combo(cls, active_keys):
@@ -61,6 +62,9 @@ class Keys(object):
             if key in numeric_keycodes:
                 index = numeric_keycodes.index(key)
                 number_key = str(chr(ord('1') + index))
+
+        if evdev.ecodes.KEY_0 in active_keys and number_key is None:
+            number_key = "1"
 
         if alpha_key is not None and number_key is not None:
             return alpha_key + number_key
