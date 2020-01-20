@@ -2,8 +2,10 @@ import os
 
 import spotipy
 
+from playback_handler import PlaybackHandler
 
-class Spotify(object):
+
+class Spotify(PlaybackHandler):
     SCOPE = 'user-modify-playback-state,user-read-playback-state,user-read-currently-playing'
 
     def __init__(self, conf):
@@ -42,6 +44,9 @@ class Spotify(object):
         return device_info
 
     def play(self, uri):
+        if not uri.startswith('spotify:'):
+            uri = 'spotify:' + uri
+
         self.currently_playing_uri = uri
         self.spotify.start_playback(device_id=self.device['id'], context_uri=uri)
 
@@ -52,7 +57,7 @@ class Spotify(object):
     def volume(self, volume):
         self.spotify.volume(volume, device_id=self.device['id'])
 
-    def is_still_playing(self):
+    def is_playing(self):
         playback_info = self.spotify.current_playback()
         is_playing = playback_info['is_playing']
         is_playing_correct_playlist = playback_info['context']['uri'] == self.currently_playing_uri

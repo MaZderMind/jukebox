@@ -93,14 +93,21 @@ class Main(object):
 
     async def handle_playback_state_changes(self):
         while True:
-            # print("polling playback-state")
-            await asyncio.sleep(1)
+            await asyncio.sleep(5)
+            key_combo = await self.keys.get_valid_key_combo()
+            if key_combo is not None and not self.playback.is_playing():
+                print("keys still pressed but playback has stopped, ejecting")
+                self.control.set_play_led(False)
+                await self.control.eject_solenoid()
+                self.reset_timeout()
+                self.leds.idle()
 
     async def handle_timeout_timer(self):
         while True:
             await asyncio.sleep(30)
             timeout = timedelta(minutes=self.conf['panel']['timeout_minutes'])
             is_timed_out = self.last_activity + timeout < datetime.now()
+
             if self.control.is_panel_on() and is_timed_out and not self.playback.is_playing():
                 print("no activitiy since", self.last_activity,
                       "(over", self.conf['panel']['timeout_minutes'], "minutes, turning panel off")
