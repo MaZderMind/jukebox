@@ -4,14 +4,11 @@ SHOW_STRIP0_IMMEDIATE = b'\x11'
 
 CMD_BLACKOUT = b'\x00'
 
-LED_SERVER_IP = "::1"
-LED_SERVER_PORT = 5555
-
 
 class Leds(object):
-    def __init__(self):
+    def __init__(self, conf):
         self.sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
-        self.sock.connect((LED_SERVER_IP, LED_SERVER_PORT))
+        self.sock.connect((conf['host'], conf['port']))
 
     def blackout(self):
         self.sock.send(CMD_BLACKOUT)
@@ -21,3 +18,15 @@ class Leds(object):
 
     def show(self, key_combo):
         self.sock.send(SHOW_STRIP0_IMMEDIATE + b'\x00\xFF\x00')
+
+
+class LedsSimulation(object):
+
+    def blackout(self):
+        print("leds: blackout")
+
+    def idle(self):
+        print("leds: idle")
+
+    def show(self, key_combo):
+        print("leds: show", key_combo)

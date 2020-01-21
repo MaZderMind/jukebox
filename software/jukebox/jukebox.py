@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 
 import toml
 
-from control import Control
+from control import Control, ControlSimulation
 from keys import Keys
-from leds import Leds
+from leds import Leds, LedsSimulation
 from playback import Playback
 
 
@@ -17,9 +17,9 @@ class Main(object):
         self.conf = conf = toml.load("configuration.toml")
 
         self.keys = Keys(conf)
-        self.control = Control()
+        self.control = ControlSimulation() if conf['panel']['simulate'] else Control()
         self.playback = Playback(conf)
-        self.leds = Leds()
+        self.leds = LedsSimulation() if conf['leds']['simulate'] else Leds(conf['leds'])
 
         self.last_activity = datetime.now()
 

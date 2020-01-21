@@ -59,8 +59,16 @@ class Spotify(PlaybackHandler):
 
     def is_playing(self):
         playback_info = self.spotify.current_playback()
+        if playback_info is None:
+            return False
+
         is_playing = playback_info['is_playing']
         is_playing_correct_playlist = playback_info['context']['uri'] == self.currently_playing_uri
         is_playing_on_device = playback_info['device']['id'] == self.device['id']
 
-        return is_playing and is_playing_on_device and is_playing_correct_playlist
+        r = is_playing and is_playing_on_device and is_playing_correct_playlist
+        if not r:
+            print("is_playing?", is_playing, "is_playing_correct_playlist?", is_playing_correct_playlist,
+                  "is_playing_on_device?", is_playing_on_device)
+
+        return r

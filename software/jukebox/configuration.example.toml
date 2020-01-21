@@ -1,10 +1,21 @@
 [spotify]
 client_id = ""
 client_secret = ""
+auth_token_storage_dir = '~/.config/jukebox/'
 username = ""
 device_name = "Jukebox"
 
-[actions]
+[panel]
+input_device_name = "panel_keys"
+timeout_minutes = 1
+simulate = true
+
+[leds]
+host = "::1"
+port = 5555
+simulate = true
+
+[playback]
 # A: Techno & House
 A1 = "spotify:playlist:37i9dQZF1DX6GJXiuZRisr" # Night Rider
 A2 = "spotify:playlist:5S33MuzhWWNW57z49eBSui" # Progressive House
