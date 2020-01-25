@@ -22,6 +22,7 @@ class Main(object):
         self.leds = LedsSimulation() if conf['leds']['simulate'] else Leds(conf['leds'])
 
         self.last_activity = datetime.now()
+        self.last_playback = None
 
     async def run(self):
         self.system_on()
@@ -76,6 +77,7 @@ class Main(object):
                     continue
 
                 print("starting playback of", key_combo)
+                self.last_playback = datetime.now()
                 self.playback.start(key_combo)
                 self.control.set_play_led(True)
                 self.leds.show(key_combo)
@@ -90,6 +92,13 @@ class Main(object):
     async def handle_playback_state_changes(self):
         while True:
             await asyncio.sleep(5)
+
+            # grant the api some grace time between calling play() and reflecting this in the playing state
+            if self.last_playback is not None:
+                time_since_last_playback = datetime.now() - self.last_playback
+                if time_since_last_playback.total_seconds() < 5:
+                    continue
+
             key_combo = await self.keys.get_valid_key_combo()
             if key_combo is not None and not self.playback.is_playing():
                 print("keys still pressed but playback has stopped, ejecting")
