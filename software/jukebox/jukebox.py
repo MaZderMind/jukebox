@@ -42,6 +42,7 @@ class Main(object):
 
     def system_off(self):
         print("system off")
+        self.playback.pause()
         self.control.set_ready_led(False)
         self.control.set_play_led(False)
         self.control.set_solenoid(False)
