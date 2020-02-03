@@ -5,10 +5,17 @@ def reverse(collection):
 
 
 class ReverseRepeatIterator(object):
+    """
+    From a Series of ABCD this Iterator returns repeating permutation of this sequence without jumps:
+    ABCD, BCDC, CDCB, DCBA, CBAB, BABC, ABCD returning to the start
+    given that A, B, C and D are colors, this gives a step-free color rotation
+    """
+
     def __init__(self, collection):
         l = list(collection)
         self.cycle_length = len(l)
-        self.collection = l + reverse(l)[1:] + l[1:] + reverse(l)[1:]
+        # Stores ABCD as ABCD_CBA_BCD of which a gliding window is iterated:
+        self.collection = l + reverse(l)[1:] + l[1:]
         self.index = 0
 
     def __iter__(self):
