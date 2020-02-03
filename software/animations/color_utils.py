@@ -70,6 +70,9 @@ def rgb_gamma(color):
     g_correction = 0.8
     b_correction = 0.8
 
+    if round(color[0], 3) == round(color[1], 3) == round(color[2], 3):
+        r_correction = g_correction = b_correction = 0.85
+
     return (
         color[0] ** (1 / gamma) * r_correction,
         color[1] ** (1 / gamma) * g_correction,
