@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
-import time
+import asyncio
 
-from color_utils import steps_two_colors, rgb_gamma, to_byte
-from reverse_repeat import ReverseRepeatIterator
-from send import send
+from animations import horizontal_wipe, vertical_wipe
+from color_utils import from_hex
+from direction import Direction
 
-c1 = (1., 0., 1.)
-c2 = (0., 0., 0.)
 
-rows = 15
-leds_per_row = 11
-color_steps = steps_two_colors(c1, c2, 30)
-repeating_iterator = ReverseRepeatIterator(color_steps)
+async def main():
+    colors = [
+        from_hex("E70000"),
+        from_hex("FF8C00"),
+        from_hex("FFEF00"),
+        from_hex("00811F"),
+        from_hex("0044FF"),
+        from_hex("760089"),
+    ]
 
-for colorset in repeating_iterator:
-    msg = b''
-    for _ in range(rows):
-        for color in colorset[0:leds_per_row]:
-            msg += bytes(to_byte(rgb_gamma(color)))
+    while True:
+        await vertical_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.FORWARD)
+        await vertical_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.REVERSE)
+        await horizontal_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.FORWARD)
+        await horizontal_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.REVERSE)
 
-    send(msg)
-    time.sleep(1 / 30)
+
+asyncio.run(main())
