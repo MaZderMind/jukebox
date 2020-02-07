@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import asyncio
 
-from animations import horizontal_wipe, vertical_wipe
+from animation_color_wipe import vertical_wipe, horizontal_wipe
 from color_utils import from_hex
 from direction import Direction
 
