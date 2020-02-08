@@ -22,6 +22,15 @@ def clamp(v, v_min=0.0, v_max=1.0):
 
 
 @for_each_channel
+def multiply(v, n):
+    """ Returns a value in the range [0,255]
+        for linear input in [0,1]
+        Can be called with a single Value or with an (R,G,B)-Tuple
+    """
+    return n * v
+
+
+@for_each_channel
 def to_byte(v):
     """ Returns a value in the range [0,255]
         for linear input in [0,1]
