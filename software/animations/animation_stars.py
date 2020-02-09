@@ -1,11 +1,8 @@
-import asyncio
 import random
-from datetime import datetime
 
-from animation_utils import ROWS, LEDS_PER_ROW, FPS, is_timed_out
-from color_utils import to_byte, multiply
+from animation_utils import ROWS, LEDS_PER_ROW
+from color_utils import multiply, clamp
 from direction import Direction
-from send import send
 
 N_LEDS = ROWS * LEDS_PER_ROW
 
@@ -29,24 +26,19 @@ class Star(object):
             self.direction = Direction.FORWARD
 
 
-async def stars(amount, colors=((1.0, 1.0, 1.0),), speed=1.0, stop_after_seconds=False):
+def stars(amount, colors=((1.0, 1.0, 1.0),), speed=1.0):
     star_objects = [Star(random.choice(colors)) for _ in range(amount)]
 
-    start = datetime.now()
     while True:
-        msg = bytearray((0, 0, 0) * N_LEDS)
+        frame = [(0, 0, 0)] * N_LEDS
 
         for star in star_objects:
             if not star.fixed:
                 star.increment(speed)
 
-            index = star.position * 3
-            msg[index:index + 3] = to_byte(multiply(star.color, star.current_brightness))
+            frame[star.position] = clamp(multiply(star.color, star.current_brightness))
 
-        send(msg)
-        await asyncio.sleep(1 / FPS)
-        if is_timed_out(start, stop_after_seconds):
-            break
+        yield frame
 
 
 def n_percent(n):

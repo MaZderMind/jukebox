@@ -17,6 +17,7 @@ def for_each_channel(func):
     return wrapper
 
 
+@for_each_channel
 def clamp(v, v_min=0.0, v_max=1.0):
     return max(min(float(v), v_max), v_min)
 
@@ -60,7 +61,7 @@ def from_hex(hex):
 
 def for_each_channel_two_args(func):
     def wrapper(channels1, channels2, *args, **kwargs):
-        if isinstance(channels1, tuple) and isinstance(channels2, tuple):
+        if isinstance(channels1, Iterable) and isinstance(channels2, Iterable):
             return tuple(
                 func(channel1, channel2, *args, **kwargs)
                 for channel1, channel2 in zip(channels1, channels2)
@@ -74,6 +75,24 @@ def for_each_channel_two_args(func):
 @for_each_channel_two_args
 def linear_interpolate(color1, color2, frac):
     return color1 * (1 - frac) + color2 * frac
+
+
+@for_each_channel_two_args
+def dip_over(a, b, color, frac):
+    """
+    frac is between [0:1]
+    during frac [0:0.5] a will be faded to color, during [0.5:1] will faded from color to b
+    """
+    if frac < 0.5:
+        frac *= 2
+        return linear_interpolate(a, color, frac)
+    else:
+        frac = (frac - 0.5) * 2
+        return linear_interpolate(color, b, frac)
+
+
+def dip_over_black(a, b, frac):
+    return dip_over(a, b, (0, 0, 0), frac)
 
 
 def steps_two_colors(color1, color2, steps):

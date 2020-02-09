@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 from color_utils import generate_color_steps
 from reverse_repeat import ReverseRepeatIterator
 
@@ -20,7 +18,3 @@ def calculate_steps(speed, lower_limit):
     speed ranges from (excluding) 0.0 to 1.0
     """
     return max(lower_limit, int(lower_limit * (1 / speed)))
-
-
-def is_timed_out(start, stop_after_seconds):
-    return stop_after_seconds is not False and datetime.now() - start > timedelta(seconds=stop_after_seconds)

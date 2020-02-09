@@ -2,9 +2,11 @@
 import asyncio
 import random
 
-from animation_color_wipe import vertical_wipe
+from animation_color_wipe import vertical_wipe, horizontal_wipe
+from animation_stars import stars
 from color_utils import from_hex, clamp
 from direction import Direction
+from timing import run_animation_sequence
 
 colors = [
     from_hex("FF0000"),
@@ -29,6 +31,13 @@ def random_shift(colors):
 
 
 async def main():
+    await run_animation_sequence([
+        vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD),
+        stars(150, colors=colors, speed=0.75),
+        horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD),
+        stars(200, speed=0.01)
+    ], seconds_per_animation=5)
+
     while True:
         # await stars(200, speed=0.01)  # slow stars
         # await stars(175, colors=((.5, .5, 1), (1, .5, .5), (1, 1, .5),), speed=0.75)  # flashlights
