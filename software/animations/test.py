@@ -5,7 +5,6 @@ import random
 from animation_color_wipe import vertical_wipe, horizontal_wipe
 from animation_stars import stars
 from color_utils import from_hex, clamp
-from dip_utils import dip_direct
 from direction import Direction
 from timing import run_animation_sequence
 
@@ -31,29 +30,60 @@ def random_shift(colors):
     return colors
 
 
-async def main():
-    await run_animation_sequence([
-        vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD),
-        stars(150, colors=colors, speed=0.75),
-        horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD),
-        stars(200, speed=0.01)
-    ], seconds_per_animation=5, fade_function=dip_direct)
+show_stars = False
+
+
+async def request_stars():
+    global show_stars
 
     while True:
-        # await stars(200, speed=0.01)  # slow stars
-        # await stars(175, colors=((.5, .5, 1), (1, .5, .5), (1, 1, .5),), speed=0.75)  # flashlights
-        # await stars(500, colors=colors, speed=0.2)  # color dots
+        await asyncio.sleep(7)
+        print("request stars")
+        show_stars = True
 
-        # await horizontal_wipe((from_hex("000000"), from_hex("ffffff")), speed=0.95, direction=Direction.REVERSE)
+        await asyncio.sleep(10)
+        print("no more stars")
+        show_stars = False
 
-        # rainbows
-        # await vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD)
-        # await vertical_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.REVERSE)
-        # await horizontal_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.FORWARD)
-        # await horizontal_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.REVERSE)
 
-        await vertical_wipe(light_colors, speed=0.1, direction=Direction.FORWARD)  # slow and light fade
-        # await vertical_wipe(random_shift(colors), speed=0.01, direction=Direction.FORWARD)  # very slow color fade
+def animation_generator():
+    global show_stars
+    star_generarors = [
+        stars(150, colors=colors, speed=0.75),
+        stars(200, speed=0.01),
+    ]
+    non_star_generarors = [
+        vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD),
+        horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD),
+    ]
+    while True:
+        if show_stars:
+            yield random.choice(star_generarors)
+        else:
+            yield random.choice(non_star_generarors)
+
+
+async def main():
+    await asyncio.wait([
+        run_animation_sequence(animation_generator(), state_probe=lambda: show_stars),
+        request_stars()
+    ])
+
+    # while True:
+    # await stars(200, speed=0.01)  # slow stars
+    # await stars(175, colors=((.5, .5, 1), (1, .5, .5), (1, 1, .5),), speed=0.75)  # flashlights
+    # await stars(500, colors=colors, speed=0.2)  # color dots
+
+    # await horizontal_wipe((from_hex("000000"), from_hex("ffffff")), speed=0.95, direction=Direction.REVERSE)
+
+    # rainbows
+    # await vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD)
+    # await vertical_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.REVERSE)
+    # await horizontal_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.FORWARD)
+    # await horizontal_wipe(colors, stop_after_seconds=5, speed=0.25, direction=Direction.REVERSE)
+
+    # await vertical_wipe(light_colors, speed=0.1, direction=Direction.FORWARD)  # slow and light fade
+    # await vertical_wipe(random_shift(colors), speed=0.01, direction=Direction.FORWARD)  # very slow color fade
 
 
 asyncio.run(main())
