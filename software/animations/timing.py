@@ -14,7 +14,7 @@ def send_as_bytes(frame):
 
 
 async def run_for(stop_after_seconds, animation_generator):
-    num_frames = stop_after_seconds / FPS
+    num_frames = stop_after_seconds * FPS
     for n, frame in enumerate(animation_generator):
         send_as_bytes(frame)
         await asyncio.sleep(1 / FPS)
@@ -34,7 +34,8 @@ async def run_animation_sequence(animation_generators,
                                  fade_function=dip_direct,
                                  seconds_for_fade=1,
                                  state_probe=lambda: None):
-    current_animation = next(animation_generators)
+    repeater = itertools.cycle(animation_generators)
+    current_animation = next(repeater)
     last_state = state_probe()
 
     while True:
@@ -55,7 +56,7 @@ async def run_animation_sequence(animation_generators,
 
             print("start dip")
             last_animation = current_animation
-            next_animation = next(animation_generators)
+            next_animation = next(repeater)
 
             num_frames = int(seconds_for_fade * FPS)
             print("num_frames", num_frames)
