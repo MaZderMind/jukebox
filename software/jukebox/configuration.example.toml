@@ -15,6 +15,23 @@ host = "::1"
 port = 5555
 simulate = true
 
+[animation]
+A = ["flashlights", "rainbow_fast", "meter"]
+C = ["stars", "rainbow_slow"]
+E = ["green_blue_slow", "green_blue_slow"]
+F = ["green_blue_slow", "green_blue_slow"]
+G = ["stars", "rainbow_slow"]
+H = ["flashlights", "rainbow_fast"]
+J = ["stars", "green_blue_slow", "green_blue_slow"]
+K = ["stars", "green_blue_slow", "green_blue_slow"]
+P = ["off"]
+P1 = ["solid_blue"]
+P2 = ["solid_red"]
+P3 = ["solid_yellow"]
+P4 = ["rainbow_slow"]
+P5 = ["solid_yellow"]
+Q = ["solid_blue"]
+
 [playback]
 # A/B: Techno & House
 A1 = "spotify:playlist:37i9dQZF1DX6GJXiuZRisr" # Night Rider
