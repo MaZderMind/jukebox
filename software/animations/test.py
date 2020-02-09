@@ -5,6 +5,7 @@ import random
 from animation_color_wipe import vertical_wipe, horizontal_wipe
 from animation_stars import stars
 from color_utils import from_hex, clamp
+from dip_utils import dip_direct
 from direction import Direction
 from timing import run_animation_sequence
 
@@ -36,7 +37,7 @@ async def main():
         stars(150, colors=colors, speed=0.75),
         horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD),
         stars(200, speed=0.01)
-    ], seconds_per_animation=5)
+    ], seconds_per_animation=5, fade_function=dip_direct)
 
     while True:
         # await stars(200, speed=0.01)  # slow stars

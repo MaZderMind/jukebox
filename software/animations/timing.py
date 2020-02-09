@@ -2,7 +2,8 @@ import asyncio
 import itertools
 
 from animation_utils import FPS
-from color_utils import rgb_gamma, to_byte, dip_over_black
+from color_utils import rgb_gamma, to_byte
+from dip_utils import dip_over_black
 from send import send
 
 
