@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import asyncio
 import random
+from asyncio import FIRST_COMPLETED
 
 from animation_color_wipe import vertical_wipe, horizontal_wipe
 from animation_stars import stars
 from color_utils import from_hex, clamp
 from direction import Direction
-from timing import run_animation_sequence
+from timing import Sequencer
 
 colors = [
     from_hex("FF0000"),
@@ -33,6 +34,27 @@ def random_shift(colors):
 show_stars = False
 
 
+def animation_generator():
+    global show_stars
+
+    star_generarors = [
+        stars(150, colors=colors, speed=0.75),
+        stars(200, speed=0.01)
+    ]
+    non_star_generarors = [
+        vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD),
+        horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD)
+    ]
+
+    if show_stars:
+        return random.choice(star_generarors)
+    else:
+        return random.choice(non_star_generarors)
+
+
+sequencer = Sequencer(animation_generator)
+
+
 async def request_stars():
     global show_stars
 
@@ -40,34 +62,19 @@ async def request_stars():
         await asyncio.sleep(7)
         print("request stars")
         show_stars = True
+        sequencer.interrupt()
 
         await asyncio.sleep(10)
         print("no more stars")
         show_stars = False
-
-
-def animation_generator():
-    global show_stars
-    star_generarors = [
-        stars(150, colors=colors, speed=0.75),
-        stars(200, speed=0.01),
-    ]
-    non_star_generarors = [
-        vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD),
-        horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD),
-    ]
-    while True:
-        if show_stars:
-            yield random.choice(star_generarors)
-        else:
-            yield random.choice(non_star_generarors)
+        sequencer.interrupt()
 
 
 async def main():
     await asyncio.wait([
-        run_animation_sequence(animation_generator(), state_probe=lambda: show_stars),
+        sequencer.run(),
         request_stars()
-    ])
+    ], return_when=FIRST_COMPLETED)
 
     # while True:
     # await stars(200, speed=0.01)  # slow stars
