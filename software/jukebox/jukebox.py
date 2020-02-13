@@ -22,7 +22,7 @@ class Main(object):
         self.conf = conf = toml.load(args.config)
 
         self.keys = Keys(conf)
-        self.control = ControlSimulation() if conf['panel']['simulate'] else Control()
+        self.control = ControlSimulation(self.keys) if conf['panel']['simulate'] else Control(self.keys)
         self.playback = Playback(conf)
         self.leds = LedsSimulation() if conf['leds']['simulate'] else Leds(conf['leds'], conf['animations'])
 
@@ -100,8 +100,7 @@ class Main(object):
 
             is_playing = self.playback.is_playing()
             if was_playing and not is_playing:
-                key_combo = await self.keys.get_valid_key_combo()
-                if key_combo is not None:
+                if self.keys.any_keys_pressed():
                     print("keys still pressed but playback has stopped, ejecting")
                     self.control.set_play_led(False)
                     await self.control.eject_solenoid()
@@ -120,6 +119,7 @@ class Main(object):
                 print("no activitiy since", self.last_activity,
                       "(over", self.conf['panel']['timeout_minutes'], "minutes), turning panel off")
                 self.control.set_panel(False)
+                self.control.set_play_led(False)
                 self.leds.blackout()
 
     def reset_timeout(self):

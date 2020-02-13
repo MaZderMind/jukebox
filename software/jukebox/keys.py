@@ -41,6 +41,9 @@ class Keys(object):
         active_keys = self.panel_device.active_keys()
         return Keys.keys_to_key_combo(active_keys)
 
+    def any_keys_pressed(self):
+        return len(self.panel_device.active_keys()) > 0
+
     @classmethod
     def keys_to_key_combo(cls, active_keys):
         alpha_keycodes = [evdev.ecodes.KEY_A, evdev.ecodes.KEY_B, evdev.ecodes.KEY_C, evdev.ecodes.KEY_D,

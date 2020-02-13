@@ -18,6 +18,9 @@ def _write_blinking(led, onoff):
 
 
 class Control(object):
+    def __init__(self, keys):
+        self.keys = keys
+
     def set_ready_led(self, onoff):
         _write('led_ready', onoff)
 
@@ -33,7 +36,8 @@ class Control(object):
     async def eject_solenoid(self):
         if self.is_solenoid_on():
             self.set_solenoid(False)
-            await asyncio.sleep(0.25)
+            while self.keys.any_keys_pressed():
+                await asyncio.sleep(0.25)
             self.set_solenoid(True)
 
     def is_panel_on(self):
@@ -44,7 +48,8 @@ class Control(object):
 
 
 class ControlSimulation(object):
-    def __init__(self):
+    def __init__(self, keys):
+        self.keys = keys
         self.solenoid_state = None
         self.panel_state = None
 
@@ -65,7 +70,8 @@ class ControlSimulation(object):
         print('control: eject_solenoid')
         if self.is_solenoid_on():
             self.set_solenoid(False)
-            await asyncio.sleep(0.25)
+            while self.keys.any_keys_pressed():
+                await asyncio.sleep(0.25)
             self.set_solenoid(True)
 
     def is_panel_on(self):
