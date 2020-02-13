@@ -1,5 +1,5 @@
-from color_utils import generate_color_steps
-from reverse_repeat import ReverseRepeatIterator
+from animations.color_utils import generate_color_steps
+from animations.reverse_repeat import ReverseRepeatIterator
 
 ROWS = 15
 LEDS_PER_ROW = 11

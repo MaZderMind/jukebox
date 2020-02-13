@@ -1,5 +1,5 @@
-from direction import Direction
-from reverse_repeat import ReverseRepeatIterator
+from animations.direction import Direction
+from animations.reverse_repeat import ReverseRepeatIterator
 
 
 def test_three_items_forward():

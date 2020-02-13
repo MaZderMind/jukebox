@@ -2,37 +2,34 @@ import asyncio
 import itertools
 from collections.abc import Iterable
 
-from animation_utils import FPS
-from color_utils import rgb_gamma, to_byte
-from dip_utils import dip_direct
-from send import send
+from animations.animation_utils import FPS
+from animations.dip_utils import dip_direct
+from animations.sender import Sender
 
 
-def send_as_bytes(frame):
-    pixels = [to_byte(rgb_gamma(pixel)) for pixel in frame]
-    msg = bytes(itertools.chain.from_iterable(pixels))
-    send(msg)
+class TimingController(object):
+    def __init__(self, sender=None):
+        self.sender = sender or Sender()
 
+    async def run_for(self, stop_after_seconds, animation_generator):
+        num_frames = stop_after_seconds * FPS
+        for n, frame in enumerate(animation_generator):
+            self.sender.display_frame(frame)
+            await asyncio.sleep(1 / FPS)
 
-async def run_for(stop_after_seconds, animation_generator):
-    num_frames = stop_after_seconds * FPS
-    for n, frame in enumerate(animation_generator):
-        send_as_bytes(frame)
-        await asyncio.sleep(1 / FPS)
+            if n > num_frames:
+                break
 
-        if n > num_frames:
-            break
-
-
-async def run_forever(animation_generator):
-    for frame in animation_generator:
-        send_as_bytes(frame)
-        await asyncio.sleep(1 / FPS)
+    async def run_forever(self, animation_generator):
+        for frame in animation_generator:
+            self.sender.display_frame(frame)
+            await asyncio.sleep(1 / FPS)
 
 
 class Sequencer(object):
+    def __init__(self, sender, animation_producer_or_list_of_animations):
+        self.sender = sender or Sender()
 
-    def __init__(self, animation_producer_or_list_of_animations):
         if isinstance(animation_producer_or_list_of_animations, Iterable):
             self.animation_producer = None
             self.animation_iterable = itertools.cycle(animation_producer_or_list_of_animations)
@@ -44,10 +41,16 @@ class Sequencer(object):
         self.fade_function = dip_direct
         self.seconds_for_fade = 1
         self._interrupted = False
+        self.stopped = True
 
     def interrupt(self):
         print("interrupting...")
         self._interrupted = True
+
+    def stop(self):
+        print("stopping animation loop...")
+        self.sender.blackout()
+        self.stopped = True
 
     def _next_animation(self):
         if self.animation_iterable is not None:
@@ -57,18 +60,23 @@ class Sequencer(object):
 
     async def run(self):
         current_animation = self._next_animation()
+        self.stopped = False
 
         while True:
             num_frames = int(self.seconds_per_animation * FPS)
             print("num_frames", num_frames)
             for n, frame in enumerate(current_animation):
-                send_as_bytes(frame)
+                self.sender.display_frame(frame)
                 await asyncio.sleep(1 / FPS)
 
                 if self._interrupted:
                     print("interrupted")
                     self._interrupted = False
                     break
+
+                if self.stopped:
+                    print("stopped")
+                    return
 
                 if n > num_frames:
                     break
@@ -83,7 +91,7 @@ class Sequencer(object):
                 last_frame = next(last_animation)
                 next_frame = next(next_animation)
                 frame = self.fade_function(last_frame, next_frame, n / num_frames)
-                send_as_bytes(frame)
+                self.sender.display_frame(frame)
                 await asyncio.sleep(1 / FPS)
 
             current_animation = next_animation

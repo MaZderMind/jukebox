@@ -1,4 +1,4 @@
-from direction import Direction
+from animations.direction import Direction
 
 
 def reverse(collection):

@@ -1,4 +1,4 @@
-from color_utils import to_byte, clamp
+from animations.color_utils import to_byte, clamp
 
 
 def test_to_byte():

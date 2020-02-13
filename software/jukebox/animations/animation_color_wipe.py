@@ -1,5 +1,5 @@
-from animation_utils import build_iterator, ROWS, LEDS_PER_ROW
-from direction import Direction
+from animations.animation_utils import build_iterator, ROWS, LEDS_PER_ROW
+from animations.direction import Direction
 
 
 def vertical_wipe(colors, speed=0.5, direction=Direction.FORWARD):

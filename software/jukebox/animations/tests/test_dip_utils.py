@@ -1,4 +1,4 @@
-from dip_utils import dip_over_black
+from animations.dip_utils import dip_over_black
 
 a = ((1, .5, .5), (.5, 0, .5))
 b = ((1, 1, 1), (0, 1, 0))

@@ -1,7 +1,7 @@
 import random
 
-from animation_utils import LEDS_PER_ROW, ROWS, N_LEDS
-from color_utils import linear_interpolate_frame
+from animations.animation_utils import LEDS_PER_ROW, ROWS, N_LEDS
+from animations.color_utils import linear_interpolate_frame
 
 INITIAL_PLAYFIELD = """
 ###############

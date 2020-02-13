@@ -1,4 +1,4 @@
-from animation_stars import N_LEDS
+from animations.animation_stars import N_LEDS
 
 
 def solid(color):

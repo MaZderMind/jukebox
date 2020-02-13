@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import asyncio
 
-from animation_pacman import pacman
-from color_utils import from_hex, clamp
-from timing import run_forever
+from animations.animation_pacman import pacman
+from animations.color_utils import from_hex, clamp
+from animations.sender import Sender
+from animations.timing import TimingController
 
 colors = [
     from_hex("FF0000"),
@@ -22,7 +23,9 @@ light_colors = [
 
 
 async def main():
-    await run_forever(pacman())
+    t = TimingController(Sender('jukebox'))
+    await t.run_forever(pacman())
+
     # await run_forever(stars(150, colors=((1., 1., .0),), speed=0.01))  # slow yellow stars
     # await run_forever(stars(150, colors=((1., 1., .0),), speed=0.01))  # slow stars
     # await stars(175, colors=((.5, .5, 1), (1, .5, .5), (1, 1, .5),), speed=0.75)  # flashlights

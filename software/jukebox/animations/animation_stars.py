@@ -1,8 +1,8 @@
 import random
 
-from animation_utils import N_LEDS
-from color_utils import multiply, clamp
-from direction import Direction
+from animations.animation_utils import N_LEDS
+from animations.color_utils import multiply, clamp
+from animations.direction import Direction
 
 
 class Star(object):

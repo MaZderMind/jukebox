@@ -1,7 +1,7 @@
 import random
 
-from animation_utils import ROWS, FPS, LEDS_PER_ROW
-from color_utils import clamp
+from animations.animation_utils import ROWS, FPS, LEDS_PER_ROW
+from animations.color_utils import clamp
 
 
 def meter(bpm=120, color_low=(0, 1, 0), color_mid=(1, 1, 0), color_high=(1, 0, 0)):

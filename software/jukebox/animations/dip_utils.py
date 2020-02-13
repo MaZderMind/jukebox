@@ -1,4 +1,4 @@
-from color_utils import for_each_channel_two_args, linear_interpolate
+from animations.color_utils import for_each_channel_two_args, linear_interpolate
 
 
 @for_each_channel_two_args
