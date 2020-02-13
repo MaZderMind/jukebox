@@ -115,11 +115,11 @@ K7 = "spotify:playlist:37i9dQZF1DX4o1oenSJRJd" # All Out 00s
 K8 = "spotify:playlist:37i9dQZF1DX5Ejj0EkURtP" # All Out 10s
 
 # P/Q: Radio & Nachrichten
-P1 = "radio:hrinforadio"
-P2 = "radio:swr3"
-P3 = "radio:swr1"
-P4 = "radio:youfm"
-P5 = "radio:rocklandradio"
+P1 = "radio:https://hr-hrinfo-live.cast.addradio.de/hr/hrinfo/live/mp3/128/stream.mp3"
+P2 = "radio:https://swr-swr3-live.cast.addradio.de/swr/swr3/live/aac/96/stream.aac"
+P3 = "radio:https://swr-swr1-rp.sslcast.addradio.de/swr/swr1/rp/aac/96/stream.aac"
+P4 = "radio:https://hr-youfm-live.cast.addradio.de/hr/youfm/live/mp3/128/stream.mp3"
+P5 = "radio:https://stream.rockland.de/rockland.mp3"
 
-Q1 = "news:tagesthemen"
-Q2 = "news:tagesschau"
+Q1 = "podcast:https://www.tagesschau.de/export/podcast/tagesthemen_https"
+Q2 = "podcast:https://www.tagesschau.de/export/podcast/tagesschau_https"

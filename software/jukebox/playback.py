@@ -1,3 +1,4 @@
+from radio import Radio
 from spotify import Spotify
 
 
@@ -6,8 +7,11 @@ class Playback(object):
         spotify = Spotify(conf)
         spotify.login()
 
+        radio = Radio()
+
         self.handlers = {
-            "spotify": spotify
+            "spotify": spotify,
+            "radio": radio
         }
 
         self.conf = conf['playback']
