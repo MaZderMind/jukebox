@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import asyncio
 import signal
 import sys
@@ -14,7 +15,11 @@ from playback import Playback
 
 class Main(object):
     def __init__(self):
-        self.conf = conf = toml.load("configuration.toml")
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--config", help="Path to the configuration.toml", default='./configuration.toml')
+        args = parser.parse_args()
+
+        self.conf = conf = toml.load(args.config)
 
         self.keys = Keys(conf)
         self.control = ControlSimulation() if conf['panel']['simulate'] else Control()
