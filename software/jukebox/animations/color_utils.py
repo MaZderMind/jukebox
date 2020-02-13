@@ -53,6 +53,7 @@ def from_hex(hex):
     """ Returns a (R,G,B)-tuple in the range [0,1]
         for a string input in RRGGBB form
     """
+    hex = hex.lstrip('#')
     return tuple(
         int(hex[i:i + 2], 16) / 255
         for i in (0, 2, 4)
