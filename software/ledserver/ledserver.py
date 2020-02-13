@@ -8,7 +8,7 @@ UDP_IP = "::"
 UDP_PORT = 5555
 
 STRIP_0 = {
-    "LED_COUNT": 10,
+    "LED_COUNT": 15 * 11,
     "PIN": 12
 }
 STRIP_1 = {

@@ -15,6 +15,29 @@ host = "::1"
 port = 5555
 simulate = true
 
+[animations]
+A = "techno"
+B = "techno"
+C = "slow"
+D = "slow"
+E = "country"
+F = "country"
+G = "slow"
+H = "fast"
+J = "slow"
+K = "slow"
+L = ["solid", "#000000"]
+M = ["solid", "#000000"]
+N = ["solid", "#000000"]
+O = ["solid", "#000000"]
+P = ["solid", "#000000"]
+P1 = ["solid", "#000080"]
+P2 = ["solid", "#ff0000"]
+P3 = ["solid", "#ffff00"]
+P4 = ["solid", "#ff00ff"]
+P5 = ["solid", "#ffff00"]
+Q = ["solid", "#000080"]
+
 [playback]
 # A/B: Techno & House
 A1 = "spotify:playlist:37i9dQZF1DX6GJXiuZRisr" # Night Rider
