@@ -16,23 +16,20 @@ class Spotify(PlaybackHandler):
 
     def login(self):
         print("logging into spotify connect account")
-        token = self._acquire_token()
-        self.spotify = spotipy.Spotify(auth=token)
+        self.spotify = spotipy.Spotify(oauth_manager=self._create_auth_manager())
         self.device = self._find_device()
 
-    def _acquire_token(self):
+    def _create_auth_manager(self):
         cache_dir = os.path.expanduser(self.conf['auth_token_storage_dir'])
         os.makedirs(cache_dir, exist_ok=True)
 
-        token = spotipy.util.prompt_for_user_token(
-            self.conf['username'],
-            Spotify.SCOPE,
+        return spotipy.oauth2.SpotifyOAuth(
+            username=self.conf['username'],
+            scope=Spotify.SCOPE,
             client_id=self.conf['client_id'],
             client_secret=self.conf['client_secret'],
             redirect_uri='http://localhost/',
             cache_path=os.path.join(cache_dir, 'spotify-token-cache-' + self.conf['username']))
-
-        return token
 
     def _find_device(self):
         all_devices = self.spotify.devices()['devices']
