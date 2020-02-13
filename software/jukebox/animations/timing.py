@@ -2,7 +2,9 @@ import asyncio
 import itertools
 from collections.abc import Iterable
 
+from animations.animation_solid import solid
 from animations.animation_utils import FPS
+from animations.color_utils import from_hex
 from animations.dip_utils import dip_direct
 from animations.sender import Sender
 
@@ -59,10 +61,26 @@ class Sequencer(object):
             return self.animation_producer()
 
     async def run(self):
-        current_animation = self._next_animation()
+        current_animation = solid(from_hex('00000'))
         self.stopped = False
 
         while True:
+            print("start dip")
+            last_animation = current_animation
+            next_animation = self._next_animation()
+
+            num_frames = int(self.seconds_for_fade * FPS)
+            print("num_frames", num_frames)
+            for n in range(num_frames):
+                last_frame = next(last_animation)
+                next_frame = next(next_animation)
+                frame = self.fade_function(last_frame, next_frame, n / num_frames)
+                self.sender.display_frame(frame)
+                await asyncio.sleep(1 / FPS)
+
+            current_animation = next_animation
+            print("dip done")
+
             num_frames = int(self.seconds_per_animation * FPS)
             print("num_frames", num_frames)
             for n, frame in enumerate(current_animation):
@@ -80,19 +98,3 @@ class Sequencer(object):
 
                 if n > num_frames:
                     break
-
-            print("start dip")
-            last_animation = current_animation
-            next_animation = self._next_animation()
-
-            num_frames = int(self.seconds_for_fade * FPS)
-            print("num_frames", num_frames)
-            for n in range(num_frames):
-                last_frame = next(last_animation)
-                next_frame = next(next_animation)
-                frame = self.fade_function(last_frame, next_frame, n / num_frames)
-                self.sender.display_frame(frame)
-                await asyncio.sleep(1 / FPS)
-
-            current_animation = next_animation
-            print("dip done")
