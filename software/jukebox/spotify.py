@@ -48,7 +48,7 @@ class Spotify(PlaybackHandler):
             uri = 'spotify:' + uri
 
         self.currently_playing_uri = uri
-        self.spotify.volume(50, device_id=self.device['id'])
+        self.spotify.volume(100, device_id=self.device['id'])
         self.spotify.start_playback(device_id=self.device['id'], context_uri=uri)
 
     def pause(self):
