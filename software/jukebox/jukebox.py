@@ -24,7 +24,7 @@ class Main(object):
         self.keys = Keys(conf)
         self.control = ControlSimulation() if conf['panel']['simulate'] else Control()
         self.playback = Playback(conf)
-        self.leds = LedsSimulation() if conf['leds']['simulate'] else Leds(conf['leds'])
+        self.leds = LedsSimulation() if conf['leds']['simulate'] else Leds(conf['leds'], conf['animations'])
 
         self.last_activity = datetime.now()
 
