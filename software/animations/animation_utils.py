@@ -3,6 +3,7 @@ from reverse_repeat import ReverseRepeatIterator
 
 ROWS = 15
 LEDS_PER_ROW = 11
+N_LEDS = ROWS * LEDS_PER_ROW
 FPS = 30
 
 

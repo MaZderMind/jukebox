@@ -1,10 +1,8 @@
 import random
 
-from animation_utils import ROWS, LEDS_PER_ROW
+from animation_utils import N_LEDS
 from color_utils import multiply, clamp
 from direction import Direction
-
-N_LEDS = ROWS * LEDS_PER_ROW
 
 
 class Star(object):

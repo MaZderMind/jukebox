@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 import asyncio
-import random
-from asyncio import FIRST_COMPLETED
 
-from animation_color_wipe import vertical_wipe, horizontal_wipe
-from animation_stars import stars
+from animation_pacman import pacman
 from color_utils import from_hex, clamp
-from direction import Direction
-from timing import Sequencer
+from timing import run_forever
 
 colors = [
     from_hex("FF0000"),
@@ -25,59 +21,10 @@ light_colors = [
 ]
 
 
-def random_shift(colors):
-    for _ in range(0, random.randint(0, len(colors))):
-        colors.insert(0, colors.pop())
-    return colors
-
-
-show_stars = False
-
-
-def animation_generator():
-    global show_stars
-
-    star_generarors = [
-        stars(150, colors=colors, speed=0.75),
-        stars(200, speed=0.01)
-    ]
-    non_star_generarors = [
-        vertical_wipe(colors, speed=0.25, direction=Direction.FORWARD),
-        horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD)
-    ]
-
-    if show_stars:
-        return random.choice(star_generarors)
-    else:
-        return random.choice(non_star_generarors)
-
-
-sequencer = Sequencer(animation_generator)
-
-
-async def request_stars():
-    global show_stars
-
-    while True:
-        await asyncio.sleep(7)
-        print("request stars")
-        show_stars = True
-        sequencer.interrupt()
-
-        await asyncio.sleep(10)
-        print("no more stars")
-        show_stars = False
-        sequencer.interrupt()
-
-
 async def main():
-    await asyncio.wait([
-        sequencer.run(),
-        request_stars()
-    ], return_when=FIRST_COMPLETED)
-
-    # while True:
-    # await stars(200, speed=0.01)  # slow stars
+    await run_forever(pacman())
+    # await run_forever(stars(150, colors=((1., 1., .0),), speed=0.01))  # slow yellow stars
+    # await run_forever(stars(150, colors=((1., 1., .0),), speed=0.01))  # slow stars
     # await stars(175, colors=((.5, .5, 1), (1, .5, .5), (1, 1, .5),), speed=0.75)  # flashlights
     # await stars(500, colors=colors, speed=0.2)  # color dots
 
