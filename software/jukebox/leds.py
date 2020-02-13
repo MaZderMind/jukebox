@@ -3,8 +3,6 @@ from enum import Enum, auto
 
 from animations.animation_meter import meter
 from animations.animation_solid import solid
-from animations.animation_stars import stars
-from animations.color_utils import from_hex
 from animations.sender import Sender
 from animations.timing import Sequencer
 
@@ -29,9 +27,9 @@ class Leds(object):
 
     def _animation_selector(self):
         if self.state == State.BLACKOUT:
-            return solid(from_hex('000000'))
+            return solid((0, 0, 0))
         elif self.state == State.IDLE:
-            return stars(150, colors=((1., 1., .0),), speed=0.005)
+            return solid((.5, .5, .5))
         elif self.state == State.ACTIVE:
             return meter()
 
