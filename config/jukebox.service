@@ -1,0 +1,14 @@
+[Unit]
+Description=Jukebox Controller
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+Restart=always
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/local/jukebox/software/env/bin/python /usr/local/jukebox/software/jukebox/jukebox.py --config=/etc/jukebox.toml
+
+[Install]
+WantedBy=multi-user.target

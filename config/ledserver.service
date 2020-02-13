@@ -1,0 +1,14 @@
+[Unit]
+Description=Jukebox LED-Server
+After=network.target
+
+[Service]
+User=root
+Group=root
+Restart=always
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/local/jukebox/software/env/bin/python /usr/local/jukebox/software/ledserver/ledserver.py
+
+[Install]
+WantedBy=multi-user.target
