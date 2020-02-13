@@ -1,6 +1,7 @@
 import random
 
-from animation_utils import LEDS_PER_ROW, ROWS
+from animation_utils import LEDS_PER_ROW, ROWS, N_LEDS
+from color_utils import linear_interpolate_frame
 
 INITIAL_PLAYFIELD = """
 ###############
@@ -137,6 +138,20 @@ def move_character(playfield, character, is_pacman, last_direction):
 
 
 def pacman():
+    last_frame = None
+    while True:
+        try:
+            gameframe = pacman_gameframe_generator()
+            while True:
+                last_frame = next(gameframe)
+                yield last_frame
+        except GameOverException:
+            n_fade = 25
+            for frame in range(n_fade):
+                yield linear_interpolate_frame(last_frame, ((0, 0, 0),) * N_LEDS, frame / n_fade)
+
+
+def pacman_gameframe_generator():
     playfield = [char for char in INITIAL_PLAYFIELD.replace('\n', '').replace('\r', '')]
     place_pacman(playfield)
     frame_count = 0
@@ -149,14 +164,11 @@ def pacman():
     }
 
     while True:
-        try:
-            frame_count += 1
-            if frame_count == 10:
-                frame_count = 0
-                pacman_last_direction = move_character(playfield, 'P', True, pacman_last_direction)
-                for ghost in 'ABCD':
-                    ghost_last_direction[ghost] = move_character(playfield, ghost, False, ghost_last_direction[ghost])
+        frame_count += 1
+        if frame_count == 10:
+            frame_count = 0
+            pacman_last_direction = move_character(playfield, 'P', True, pacman_last_direction)
+            for ghost in 'ABCD':
+                ghost_last_direction[ghost] = move_character(playfield, ghost, False, ghost_last_direction[ghost])
 
-            yield rotate_frame(playfield_to_frame(playfield))
-        except GameOverException:
-            return  # TODO check with sequencer
+        yield rotate_frame(playfield_to_frame(playfield))

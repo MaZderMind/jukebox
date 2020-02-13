@@ -77,6 +77,11 @@ def linear_interpolate(color1, color2, frac):
     return color1 * (1 - frac) + color2 * frac
 
 
+@for_each_channel_two_args
+def linear_interpolate_frame(color1, color2, frac):
+    return linear_interpolate(color1, color2, frac)
+
+
 def steps_two_colors(color1, color2, steps):
     return [
         linear_interpolate(color1, color2, step / (steps - 1))
