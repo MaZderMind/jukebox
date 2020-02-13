@@ -31,7 +31,7 @@ class Leds(object):
         if self.state == State.BLACKOUT:
             return solid(from_hex('000000'))
         elif self.state == State.IDLE:
-            return stars(150, colors=((1., 1., .0),), speed=0.01)
+            return stars(150, colors=((1., 1., .0),), speed=0.005)
         elif self.state == State.ACTIVE:
             return meter()
 
@@ -39,17 +39,19 @@ class Leds(object):
         self.state = State.BLACKOUT
         self.seq.stop()
 
-    def _start_if_stopped(self):
+    def _start_or_interrupt(self):
         if self.seq.stopped:
             asyncio.create_task(self.seq.run())
+        else:
+            self.seq.interrupt()
 
     def idle(self):
         self.state = State.IDLE
-        self._start_if_stopped()
+        self._start_or_interrupt()
 
     def show(self, key_combo):
         self.state = State.ACTIVE
-        self._start_if_stopped()
+        self._start_or_interrupt()
 
 
 class LedsSimulation(object):
