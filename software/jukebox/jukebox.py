@@ -78,6 +78,7 @@ class Main(object):
 
                 if not self.playback.can_start(key_combo):
                     print("key-combo", key_combo, "is not playable; ejecting selection")
+                    current_key_combo = None
                     await self.control.eject_solenoid()
                     continue
 
