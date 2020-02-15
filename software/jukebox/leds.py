@@ -5,6 +5,7 @@ import named_animations
 from animations.animation_solid import solid
 from animations.sender import Sender
 from animations.timing import Sequencer
+from secondary_leds import SecondaryLeds
 
 SHOW_STRIP0_IMMEDIATE = b'\x11'
 
@@ -19,10 +20,9 @@ class State(Enum):
 
 class Leds(object):
     def __init__(self, conf, animations):
-        self.seq = Sequencer(
-            Sender(conf['host'], conf['port']),
-            self._animation_selector
-        )
+        sender = Sender(conf['host'], conf['port'])
+        self.seq = Sequencer(sender,self._animation_selector)
+        self.secondary = SecondaryLeds(sender)
         self.state = State.BLACKOUT
         self.animations = animations
         self._animation_name = None
@@ -46,6 +46,7 @@ class Leds(object):
     def blackout(self):
         self.state = State.BLACKOUT
         self.seq.stop()
+        self.secondary.stop()
 
     def _start_or_interrupt(self):
         if self.seq.stopped:
@@ -56,9 +57,11 @@ class Leds(object):
     def idle(self):
         self.state = State.IDLE
         self._start_or_interrupt()
+        self.secondary.idle()
 
     def show(self, key_combo):
         self.state = State.ACTIVE
+        self.secondary.start()
         letter = key_combo[0]
         if key_combo in self.animations:
             self._animation_name = self.animations[key_combo]
