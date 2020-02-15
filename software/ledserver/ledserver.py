@@ -12,7 +12,7 @@ STRIP_0 = {
     "PIN": 12
 }
 STRIP_1 = {
-    "LED_COUNT": 10,
+    "LED_COUNT": 21 * 3,
     "PIN": 13
 }
 
