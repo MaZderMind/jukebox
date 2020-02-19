@@ -14,10 +14,9 @@ class SecondaryLeds():
         self._task = None
 
     def start(self):
-        self.stop()
-
-        print("starting secondary LEDs")
-        self._task = asyncio.create_task(self.run())
+        if self._task is None:
+            print("starting secondary LEDs")
+            self._task = asyncio.create_task(self.run())
 
     def stop(self):
         if self._task is not None:
