@@ -11,29 +11,26 @@ COLORS = [(0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 0), (1, 
 class SecondaryLeds():
     def __init__(self, sender):
         self.sender = sender
-        self._stopped = True
+        self._task = None
 
     def start(self):
+        self.stop()
+
         print("starting secondary LEDs")
-        self._stopped = False
-        asyncio.create_task(self.run())
+        self._task = asyncio.create_task(self.run())
 
     def stop(self):
-        print("stopping secondary LEDs")
-        self._stopped = True
+        if self._task is not None:
+            print("stopping secondary LEDs")
+            self._task.cancel()
+            self._task = None
 
     def idle(self):
         print("idle secondary LEDs")
         self.sender.display_frame_on_secondary_leds((WHITE,) * N_LEDS)
-        self._stopped = True
 
     async def run(self):
         while True:
             for color in COLORS:
-                if self._stopped:
-                    self._stopped = False
-                    print("stopped secondary LEDs")
-                    return
-
                 self.sender.display_frame_on_secondary_leds((color,) * N_LEDS)
                 await asyncio.sleep(1)
