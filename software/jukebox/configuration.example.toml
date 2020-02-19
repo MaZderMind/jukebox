@@ -88,7 +88,7 @@ G8 = "spotify:artist:3xDVmZmDpaF1uuez2N7mKl" # Tim Bendzko
 
 H1 = "spotify:artist:5slpk6nu2IwwKx0EHe3GcL" # Lena
 H2 = "spotify:artist:7IpWQKu80qQvyer3LO6SW3" # Max Herre
-H3 = "spotify:artist:165ZgPlLkK7bf5bDoFc6Sb" # Limp Bizkit
+H3 = "spotify:artist:7uhvDINTTiD0XBrP9fquN1" # The Hooters
 H4 = "spotify:artist:6XyY86QOPPrYVGvF9ch6wz" # Linkin Park
 H5 = "spotify:artist:1hJuGCUpefX24GFmss9bjH" # Amy Macdonald
 H6 = "spotify:artist:13YmWQJFwgZrd4bf5IjMY4" # Brad Paisley
@@ -123,3 +123,9 @@ P5 = "radio:https://stream.rockland.de/rockland.mp3"
 
 Q1 = "podcast:https://www.tagesschau.de/export/podcast/tagesthemen_https"
 Q2 = "podcast:https://www.tagesschau.de/export/podcast/tagesschau_https"
+Q3 = "podcast:https://theamphour.com/feed/podcast/"
+Q4 = "podcast:https://minkorrekt.de/feed/m4a/"
+Q5 = "podcast:https://www.hoaxilla.com/podcast/hoaxilla.xml"
+Q6 = "podcast:http://web.ard.de/radiotatort/rss/podcast.xml"
+Q7 = "podcast:https://www.ard.de/static/radio/radiofeature/rss/podcast.xml"
+Q8 = "podcast:https://podcast.hr-online.de/hr-info_reportage/podcast.xml"
