@@ -1,26 +1,28 @@
 import subprocess
 
+current_proc = None
+
 
 class FFplay(object):
-    def __init__(self):
-        self._proc = None
-
     def stop_ffplay(self):
-        if self._proc is not None:
+        global current_proc
+        if current_proc is not None:
             print("terminating ffmepg")
-            self._proc.terminate()
-            self._proc = None
+            current_proc.terminate()
+            current_proc = None
 
     def is_ffplay_running(self):
-        if self._proc is not None:
-            poll = self._proc.poll()
+        global current_proc
+        if current_proc is not None:
+            poll = current_proc.poll()
             return poll is None
 
         return False
 
     def start_ffplay(self, url):
+        global current_proc
         self.stop_ffplay()
         print("starting ffmepg", url)
-        self._proc = subprocess.Popen(["ffplay", "-autoexit", "-nodisp", url],
-                                      stdout=subprocess.DEVNULL,
-                                      stderr=subprocess.DEVNULL)
+        current_proc = subprocess.Popen(["ffplay", "-autoexit", "-nodisp", url],
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.DEVNULL)
