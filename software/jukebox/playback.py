@@ -37,6 +37,7 @@ class Playback(object):
         return True
 
     def start(self, key_combo):
+        self.pause()
         target = self.conf[key_combo]
         prefix, target = target.split(':', 1)
         self.playing_prefix = prefix
