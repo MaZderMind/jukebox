@@ -1,6 +1,7 @@
 from podcast import Podcast
 from radio import Radio
 from spotify import Spotify
+from youtube_dl import YoutubeDl
 
 
 class Playback(object):
@@ -10,11 +11,13 @@ class Playback(object):
 
         radio = Radio()
         podcast = Podcast()
+        youtube_dl = YoutubeDl()
 
         self.handlers = {
             "spotify": spotify,
             "radio": radio,
             "podcast": podcast,
+            "youtube-dl": youtube_dl,
         }
 
         self.conf = conf['playback']

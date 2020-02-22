@@ -19,10 +19,11 @@ class FFplay(object):
 
         return False
 
-    def start_ffplay(self, url):
+    def start_ffplay(self, url, stdin=subprocess.DEVNULL):
         global current_proc
         self.stop_ffplay()
         print("starting ffmepg", url)
         current_proc = subprocess.Popen(["ffplay", "-autoexit", "-nodisp", url],
                                         stdout=subprocess.DEVNULL,
-                                        stderr=subprocess.DEVNULL)
+                                        stderr=subprocess.DEVNULL,
+                                        stdin=stdin)
