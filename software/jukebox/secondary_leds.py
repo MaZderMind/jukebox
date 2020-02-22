@@ -26,6 +26,7 @@ class SecondaryLeds():
 
     def idle(self):
         print("idle secondary LEDs")
+        self.stop()
         self.sender.display_frame_on_secondary_leds((WHITE,) * N_LEDS)
 
     async def run(self):
