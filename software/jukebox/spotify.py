@@ -34,8 +34,12 @@ class Spotify(PlaybackHandler):
     def _find_device(self):
         all_devices = self.spotify.devices()['devices']
         device_name = self.conf['device_name'].lower()
-        device_info = next(device for device in all_devices
-                           if device['name'].lower() == device_name)
+        try:
+            device_info = next(device for device in all_devices
+                               if device['name'].lower() == device_name)
+        except StopIteration:
+            print('did not find device', device_name, 'available devices:', [device['name'] for device in all_devices])
+            raise
 
         print('found device', device_info)
         return device_info
