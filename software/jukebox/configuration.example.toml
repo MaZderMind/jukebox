@@ -124,15 +124,26 @@ K6 = "spotify:playlist:37i9dQZF1DXbTxeAdrVG2l" # All Out 90s
 K7 = "spotify:playlist:37i9dQZF1DX4o1oenSJRJd" # All Out 00s
 K8 = "spotify:playlist:37i9dQZF1DX5Ejj0EkURtP" # All Out 10s
 
-# L/M: Rock / Künstler
+# L/M: Rock & Punk Rock
 L1 = "spotify:playlist:2YdBr4tvSa8xX2ea4UoWUz" # Creedence Clearwater Revival
 L2 = "spotify:album:6kg3qgXaFmlXi4ik74uW7k" # Amorphis
 L3 = "spotify:album:5zylhCTCHQstRpSU47BEiw" # Madrugada
 L4 = "spotify:artist:61YE3whKiuRr83j1yOm5M7" # Augustana
+L5 = "spotify:artist:7oPftvlwr6VrsViSDV7fJY" # Green Day
+L6 = "spotify:artist:08yf5A2nS4XEeNvabDXqyg" # The Offspring
+L7 = "spotify:artist:2p4FqHnazRucYQHyDCdBrJ" # Simple Plan
+L8 = "spotify:artist:3Ayl7mCk0nScecqOzvNp6s" # Jimmy Eat World
 
+M1 = "spotify:playlist:37i9dQZF1DXaQ34lqGBfrU" # Pink Floyd
+M2 = "spotify:artist:22WZ7M8sxp5THdruNY3gXt" # The Doors
+M3 = "spotify:artist:3vAaWhdBR38Q02ohXqaNHT" # The All-American Reject
+M4 = "spotify:artist:30sqtiTKIb1oDve0SdYayT" # Anti Flag
+M5 = "spotify:artist:6Wr3hh341P84m3EI8qdn9O" # Rise Against
+M6 = "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb" # My Chemical Romance
+M7 = "spotify:artist:6mdiAmATAx73kdxrNrnlao" # Iron Maiden
+M8 = "spotify:artist:2ye2Wgw4gimLv2eAKyk1NB" # Metallica
 
-
-# N/O: Swing
+# N/O: Electro Swing
 N1 = "spotify:playlist:5M7xLCQTYJL0lbKIrUn3a4" # Electro Swing 100
 N2 = "spotify:artist:65EXuYHVoehCKqp0kOS6px" # Parov Stelar
 
