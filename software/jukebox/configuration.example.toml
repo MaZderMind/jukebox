@@ -44,8 +44,8 @@ A1 = "spotify:playlist:37i9dQZF1DX6GJXiuZRisr" # Night Rider
 A2 = "spotify:playlist:5S33MuzhWWNW57z49eBSui" # Progressive House
 A3 = "spotify:playlist:3oRNodhtGLVnZl0Q32FJHB" # Deep House 2020 Hits
 A4 = "spotify:playlist:37i9dQZF1DX5xiztvBdlUf" # Truely Deeply House
-A5 = "spotify:playlist:37i9dQZF1DXaXB8fQg7xif" # Dance Party
-A6 = "spotify:playlist:37i9dQZF1DXbX3zSzB4MO0" # Club Beats
+A5 = "spotify:playlist:5M7xLCQTYJL0lbKIrUn3a4" # Electro Swing 100
+A6 = "spotify:playlist:1dYAJbmobktEp59pUPeGGU" # EBM, Dark-Electro & Fututepop
 A7 = "spotify:playlist:5awU7dImY2OenjRFfN8WKD" # Happy Hardcore
 A8 = "spotify:playlist:0DIpxrBwqAhJGOe41kYrVz" # Synthwave / Retrowave
 
@@ -123,6 +123,9 @@ K5 = "spotify:playlist:37i9dQZF1DX4UtSsGT1Sbe" # All Out 80s
 K6 = "spotify:playlist:37i9dQZF1DXbTxeAdrVG2l" # All Out 90s
 K7 = "spotify:playlist:37i9dQZF1DX4o1oenSJRJd" # All Out 00s
 K8 = "spotify:playlist:37i9dQZF1DX5Ejj0EkURtP" # All Out 10s
+
+# L/M Rock
+L1 = "spotify:playlist:2YdBr4tvSa8xX2ea4UoWUz" # Creedence Clearwater Revival
 
 # P/Q: Radio & Nachrichten
 P1 = "radio:https://hr-hrinfo-live.cast.addradio.de/hr/hrinfo/live/mp3/128/stream.mp3"
