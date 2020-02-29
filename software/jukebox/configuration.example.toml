@@ -143,9 +143,26 @@ M6 = "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb" # My Chemical Romance
 M7 = "spotify:artist:6mdiAmATAx73kdxrNrnlao" # Iron Maiden
 M8 = "spotify:artist:2ye2Wgw4gimLv2eAKyk1NB" # Metallica
 
-# N/O: Electro Swing
-N1 = "spotify:playlist:5M7xLCQTYJL0lbKIrUn3a4" # Electro Swing 100
-N2 = "spotify:artist:65EXuYHVoehCKqp0kOS6px" # Parov Stelar
+# N/O: Swing, Jazz, Blues
+N1 = "spotify:playlist:37i9dQZF1DWYotlhbgVGaH" # Swing Revival
+N2 = "spotify:playlist:16aOw456cLyMMRg1WFsYDy" # Charsleton - Swing - Jazz
+N3 = "spotify:playlist:37i9dQZF1DXdDe8IDhRIo5" # Gypsy Swing
+N4 = "spotify:playlist:4pQrymxnlsus5rHhkX84fc" # Swingin' Saxophones
+
+N5 = "spotify:playlist:5M7xLCQTYJL0lbKIrUn3a4" # Electro Swing 100
+N6 = "spotify:artist:65EXuYHVoehCKqp0kOS6px"   # Parov Stelar
+N7 = "spotify:playlist:1Wx9I2fNdPMch92AwdenLB" # Electro Jazz & Swing
+N8 = "spotify:playlist:3hhSBDksTzJjBEnIaJj1gq" # Dark Electro Swing
+
+O1 = "spotify:playlist:37i9dQZF1DWU6MDxlH7Sr1" # Happy Jazz!
+O2 = "spotify:playlist:37i9dQZF1DX0SM0LYsmbMT" # Jazz Vibes
+O3 = "spotify:playlist:37i9dQZF1DX55dNU0PWnO5" # Jazztronica
+O4 = "spotify:playlist:37i9dQZF1DX5OepaGriAIm" # Women of Jazz
+
+O5 = "spotify:playlist:37i9dQZF1DXd9rSDyQguIk" # Blues Classics
+O6 = "spotify:playlist:37i9dQZF1DX9stbPFTxeaB" # Funk Heavy Blues
+O7 = "spotify:playlist:37i9dQZF1DXcFk5r8uS3l2" # Blues Roots
+O8 = "spotify:playlist:37i9dQZF1DXaOWYud3Cg4V" # Early Rhythm & Blues
 
 # P/Q: Radio & Nachrichten
 P1 = "radio:https://hr-hrinfo-live.cast.addradio.de/hr/hrinfo/live/mp3/128/stream.mp3"
