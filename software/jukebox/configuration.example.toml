@@ -26,10 +26,11 @@ G = "slow"
 H = "fast"
 J = "slow"
 K = "slow"
-L = ["solid", "#000000"]
-M = ["solid", "#000000"]
-N = ["solid", "#000000"]
-O = ["solid", "#000000"]
+L = "fast"
+M = "fast"
+N = "slow"
+O = "slow"
+
 P = ["solid", "#000000"]
 P1 = ["solid", "#000080"]
 P2 = ["solid", "#ff0000"]
