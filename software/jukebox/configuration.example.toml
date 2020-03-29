@@ -67,6 +67,11 @@ C3 = "spotify:playlist:37i9dQZF1DX82pCGH5USnM" # Lounge - Soft House
 C4 = "spotify:playlist:37i9dQZF1DX6KItbiYYmAv" # Kaffeehausmusik
 C5 = "spotify:playlist:77vsvVJ7iWB1ySfDGh1SUP" # Acustic Covers
 C6 = "spotify:playlist:7BcfqemslcdlXSRbgTqkPf" # Chillout Piano
+C7 = "spotify:artist:2lVC2nWo4KJE4p6EySdfkL"   # Toco - Samba
+C8 = "spotify:album:3pjbc9osODpEtK1KiD2Mar"    # Samba Chill Out
+
+D1 = "spotify:playlist:1u0bu4ezkj4QHDkfjXwKsW" # Kinderlieder zum Mitsingen
+D2 = "spotify:playlist:37i9dQZF1DXe2dJQTHQvBA" # Rolf Zukowski Best Of
 
 # E/F: Country & Folk
 E1 = "spotify:playlist:37i9dQZF1DWXi7h4mmmkzD" # Country Nights
