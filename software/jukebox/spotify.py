@@ -18,6 +18,9 @@ class Spotify(PlaybackHandler):
         print("logging into spotify connect account")
         self.spotify = spotipy.Spotify(oauth_manager=self._create_auth_manager())
 
+        device = self._find_device()
+        print('found device', device)
+
     def _create_auth_manager(self):
         cache_dir = os.path.expanduser(self.conf['auth_token_storage_dir'])
         os.makedirs(cache_dir, exist_ok=True)
@@ -42,7 +45,6 @@ class Spotify(PlaybackHandler):
             subprocess.check_call(['sudo', 'systemctl', 'restart', 'raspotify.service'])
             raise
 
-        print('found device', device_info)
         return device_info
 
     def play(self, uri):
