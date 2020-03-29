@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 import spotipy
 
@@ -12,12 +13,10 @@ class Spotify(PlaybackHandler):
         self.currently_playing_uri = None
         self.conf = conf['spotify']
         self.spotify = None
-        self.device = None
 
     def login(self):
         print("logging into spotify connect account")
         self.spotify = spotipy.Spotify(oauth_manager=self._create_auth_manager())
-        self.device = self._find_device()
 
     def _create_auth_manager(self):
         cache_dir = os.path.expanduser(self.conf['auth_token_storage_dir'])
@@ -39,6 +38,8 @@ class Spotify(PlaybackHandler):
                                if device['name'].lower() == device_name)
         except StopIteration:
             print('did not find device', device_name, 'available devices:', [device['name'] for device in all_devices])
+            print('trying to restart raspotify.service before next restart')
+            subprocess.check_call(['sudo', 'systemctl', 'restart', 'raspotify.service'])
             raise
 
         print('found device', device_info)
@@ -48,28 +49,32 @@ class Spotify(PlaybackHandler):
         if not uri.startswith('spotify:'):
             uri = 'spotify:' + uri
 
+        device = self._find_device()
         self.currently_playing_uri = uri
-        self.spotify.volume(100, device_id=self.device['id'])
-        self.spotify.start_playback(device_id=self.device['id'], context_uri=uri)
+        self.spotify.volume(100, device_id=device['id'])
+        self.spotify.start_playback(device_id=device['id'], context_uri=uri)
 
     def pause(self):
         self.currently_playing_uri = None
-        self.spotify.pause_playback(device_id=self.device['id'])
+        device = self._find_device()
+        self.spotify.pause_playback(device_id=device['id'])
 
     def volume(self, volume):
-        self.spotify.volume(volume, device_id=self.device['id'])
+        device = self._find_device()
+        self.spotify.volume(volume, device_id=device['id'])
 
     def is_playing(self):
         playback_info = self.spotify.current_playback()
         if playback_info is None:
             return False
 
+        device = self._find_device()
         is_playing = bool(playback_info.get('is_playing'))
 
         context = playback_info.get('context')
         is_playing_correct_playlist = context is not None and context.get('uri') == self.currently_playing_uri
 
-        device = playback_info.get('device', None)
-        is_playing_on_device = device is not None and device.get('id') == self.device['id']
+        playing_device = playback_info.get('device', None)
+        is_playing_on_device = playing_device is not None and playing_device.get('id') == device['id']
 
         return is_playing and is_playing_on_device and is_playing_correct_playlist
