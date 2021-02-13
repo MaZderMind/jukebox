@@ -1,7 +1,7 @@
-jukebox.dtbo:
+jukebox.dtbo: jukebox.dts
 	dtc -@ -Hepapr -I dts -O dtb -o jukebox.dtbo jukebox.dts
 
-/boot/overlays/jukebox.dtbo:
+/boot/overlays/jukebox.dtbo: jukebox.dtbo
 	sudo cp jukebox.dtbo /boot/overlays/
 
 install: /boot/overlays/jukebox.dtbo
