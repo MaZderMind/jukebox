@@ -254,7 +254,7 @@
 	fragment@3 {
 		target-path = "/soc/gpio";
 		__overlay__ {
-			knob_pins: knob_pins {
+			volume_knob_pins: volume_knob_pins {
 				brcm,pins = <14 15>;
 				brcm,function = <0>;
 				brcm,pull = <2>;
@@ -264,14 +264,14 @@
 
 
 	fragment@4 {
-		target-path = "/soc";
+		target-path = "/";
 		__overlay__ {
-			knob: knob {
+			volume_knob: volume_knob {
 				compatible = "rotary-encoder";
 				#address-cells = <1>;
 				#size-cells = <0>;
 				pinctrl-names = "default";
-				pinctrl-0 = <&knob_pins>;
+				pinctrl-0 = <&volume_knob_pins>;
 				gpios = <&gpio 14 1>, <&gpio 15 1>; 
 				linux,axis = <9>; /* REL_MISC */
 				rotary-encoder,relative-axis;
