@@ -9,11 +9,9 @@ class Keys(object):
         self.panel_device = None
 
     async def open_device(self):
-        panel_name = self.conf['input_device_name']
-
         panel_device = [
             evdev.InputDevice(dev) for dev in evdev.list_devices() if
-            evdev.InputDevice(dev).name == panel_name
+            evdev.InputDevice(dev).name == self.conf['input_device_name']
         ]
 
         if len(panel_device) == 0:
@@ -27,7 +25,7 @@ class Keys(object):
             evdev.InputDevice(dev).name for dev in evdev.list_devices()
         ]
         print("no input-device with name", self.conf['input_device_name'],
-              "found. The folloging devides are registered", panel_names)
+              "found. The following devices are registered", panel_names)
 
     async def wait_for_event(self):
         async for event in self.panel_device.async_read_loop():
