@@ -5,7 +5,7 @@ from youtube_dl import YoutubeDl
 
 
 class Playback(object):
-    def __init__(self, conf):
+    def __init__(self, conf, volume):
         spotify = Spotify(conf)
         spotify.login()
 
@@ -22,6 +22,7 @@ class Playback(object):
 
         self.conf = conf['playback']
         self.playing_prefix = None
+        self.volume = volume
 
     def can_start(self, key_combo):
         if key_combo not in self.conf:
@@ -38,6 +39,7 @@ class Playback(object):
 
     def start(self, key_combo):
         self.pause()
+        self.volume.reset_volume()
         target = self.conf[key_combo]
         prefix, target = target.split(':', 1)
         self.playing_prefix = prefix

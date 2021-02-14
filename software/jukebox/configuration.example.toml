@@ -10,6 +10,10 @@ input_device_name = "panel_keys"
 timeout_minutes = 1
 simulate = true
 
+[volume]
+input_device_name = "volume_knob"
+alsa_mixer_name = "Digital"
+
 [leds]
 host = "::1"
 port = 5555

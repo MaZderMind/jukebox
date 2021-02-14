@@ -11,6 +11,7 @@ from control import Control, ControlSimulation
 from keys import Keys
 from leds import Leds, LedsSimulation
 from playback import Playback
+from volume import Volume
 
 
 class Main(object):
@@ -22,8 +23,9 @@ class Main(object):
         self.conf = conf = toml.load(args.config)
 
         self.keys = Keys(conf)
+        self.volume = Volume(conf)
         self.control = ControlSimulation(self.keys) if conf['panel']['simulate'] else Control(self.keys)
-        self.playback = Playback(conf)
+        self.playback = Playback(conf, self.volume)
         self.leds = LedsSimulation() if conf['leds']['simulate'] else Leds(conf['leds'], conf['animations'])
 
         self.last_activity = datetime.now()
@@ -32,6 +34,7 @@ class Main(object):
         self.system_on()
         await asyncio.wait([
             self.handle_keys(),
+            self.handle_volume(),
             self.handle_playback_state_changes(),
             self.handle_timeout_timer()
         ], return_when=asyncio.FIRST_COMPLETED)
@@ -93,6 +96,13 @@ class Main(object):
                 self.playback.pause()
                 self.control.set_play_led(False)
                 self.leds.idle()
+
+    async def handle_volume(self):
+        print("opening Volume-Input-Device")
+        await self.volume.open_device()
+
+        print("waiting for Volume-Events")
+        await self.volume.handle_events()
 
     async def handle_playback_state_changes(self):
         was_playing = False
