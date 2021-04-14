@@ -16,6 +16,7 @@ class Volume(object):
 
     def reset_volume(self):
         print(f"Resetting Volume back to {DEFAULT_VOLUME}%")
+        self.alsa_mixer.setmute(False)
         self.alsa_mixer.setvolume(DEFAULT_VOLUME)
 
     async def open_device(self):
@@ -46,6 +47,7 @@ class Volume(object):
     def adjust_volume(self, amount):
         current_volume = self.alsa_mixer.getvolume()[0]
         new_volume = clamp(current_volume + amount, 0, 100)
+        self.alsa_mixer.setmute(False)
         self.alsa_mixer.setvolume(new_volume)
 
 
