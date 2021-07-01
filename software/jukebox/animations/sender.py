@@ -10,7 +10,7 @@ CMD_BLACKOUT = b'\x00'
 
 class Sender(object):
     def __init__(self, host='127.0.0.1', port=5555):
-        self.sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.connect((host, port))
 
     def blackout(self):
