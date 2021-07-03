@@ -3,8 +3,7 @@ import socket
 
 from animations.color_utils import to_byte, rgb_gamma
 
-SHOW_STRIP0_IMMEDIATE = b'\x11'
-SHOW_STRIP1_IMMEDIATE = b'\x12'
+SHOW_STRIP_IMMEDIATE = 0x11
 CMD_BLACKOUT = b'\x00'
 
 
@@ -17,13 +16,13 @@ class Sender(object):
     def blackout(self):
         self.sock.send(CMD_BLACKOUT)
 
-    def display_frame(self, frame):
+    def display_frame(self, frame, strip_index=0):
         msg = self._frame_to_msg(frame)
-        self.sock.send(SHOW_STRIP0_IMMEDIATE + msg)
+        command = SHOW_STRIP_IMMEDIATE + strip_index
+        self.sock.send(command.to_bytes(1, 'big') + msg)
 
     def display_frame_on_secondary_leds(self, frame):
-        msg = self._frame_to_msg(frame)
-        self.sock.send(SHOW_STRIP1_IMMEDIATE + msg)
+        self.display_frame(frame, 1)
 
     def _frame_to_msg(self, frame):
         pixels = [to_byte(rgb_gamma(pixel)) for pixel in frame]
