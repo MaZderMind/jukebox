@@ -17,7 +17,7 @@ class ReverseRepeatIterator(object):
     def __init__(self, collection, direction=Direction.FORWARD):
         l = list(collection)
         self.cycle_length = len(l)
-        # Stores ABCD as ABCD_CBA_BCD of which a gliding window is iterated:
+        # Stores ABCD as ABCD_CBA_BCD of which a sliding window is iterated:
         self.collection = l + reverse(l)[1:] + l[1:]
         self.index = 0
         self.direction = direction
