@@ -13,15 +13,6 @@ class TimingController(object):
     def __init__(self, sender=None):
         self.sender = sender or Sender()
 
-    async def run_for(self, stop_after_seconds, animation_generator):
-        num_frames = stop_after_seconds * FPS
-        for n, frame in enumerate(animation_generator):
-            self.sender.display_frame(frame)
-            await asyncio.sleep(1 / FPS)
-
-            if n > num_frames:
-                break
-
     async def run_forever(self, animation_generator):
         for frame in animation_generator:
             self.sender.display_frame(frame)
