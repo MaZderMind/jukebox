@@ -15,7 +15,7 @@ input_device_name = "volume_knob"
 alsa_mixer_name = "Digital"
 
 [leds]
-host = "::1"
+host = "127.0.0.1"
 port = 5555
 simulate = true
 
