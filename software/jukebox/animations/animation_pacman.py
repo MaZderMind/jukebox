@@ -1,6 +1,7 @@
 import random
 
-from animations.animation_utils import LEDS_PER_ROW, ROWS, N_LEDS
+from animations.animation import Animation
+from animations.animation_utils import LEDS_PER_ROW, ROWS
 from animations.color_utils import linear_interpolate_frame
 
 INITIAL_PLAYFIELD = """
@@ -137,18 +138,38 @@ def move_character(playfield, character, is_pacman, last_direction):
         return last_direction + 2
 
 
-def pacman():
-    last_frame = None
-    while True:
-        try:
-            gameframe = pacman_gameframe_generator()
-            while True:
-                last_frame = next(gameframe)
-                yield last_frame
-        except GameOverException:
-            n_fade = 25
-            for frame in range(n_fade):
-                yield linear_interpolate_frame(last_frame, ((0, 0, 0),) * N_LEDS, frame / n_fade)
+class Pacman(Animation):
+    def matrix_generator(self, rows, leds_per_row):
+        n_leds = rows * leds_per_row
+        last_frame = None
+        while True:
+            try:
+                gameframe = pacman_gameframe_generator()
+                while True:
+                    last_frame = next(gameframe)
+                    yield last_frame
+            except GameOverException:
+                n_fade = 25
+                for frame in range(n_fade):
+                    yield linear_interpolate_frame(last_frame, ((0, 0, 0),) * n_leds, frame / n_fade)
+
+    def strip_generator(self, leds):
+        n_pacman = 5
+        position = 0
+        direction = +1
+        while True:
+            yield \
+                (COLOR_BORDER,) + \
+                (COLOR_BACKGROUND,) * (position + 1) + \
+                (COLOR_PACMAN,) * n_pacman + \
+                (COLOR_BACKGROUND,) * (leds - position - n_pacman - 3) + \
+                (COLOR_BORDER,)
+
+            position += direction
+            if position == leds - n_pacman - 3:
+                direction = -1
+            elif position == 0:
+                direction = +1
 
 
 def pacman_gameframe_generator():

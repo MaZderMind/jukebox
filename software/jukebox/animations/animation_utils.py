@@ -1,9 +1,8 @@
 from animations.color_utils import generate_color_steps
 from animations.reverse_repeat import ReverseRepeatIterator
 
-ROWS = 15
-LEDS_PER_ROW = 11
-N_LEDS = ROWS * LEDS_PER_ROW
+ROWS = 15 # deprecated
+LEDS_PER_ROW = 11 # deprecated
 FPS = 30
 
 

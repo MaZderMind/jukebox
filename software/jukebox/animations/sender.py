@@ -8,16 +8,17 @@ CMD_BLACKOUT = b'\x00'
 
 
 class Sender(object):
-    def __init__(self, host='127.0.0.1', port=5555):
+    def __init__(self, host='127.0.0.1', port=5555, strip_index=0):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.connect((host, port))
+        self.strip_index = strip_index
 
     def blackout(self):
         self.sock.send(CMD_BLACKOUT)
 
-    def display_frame(self, frame, strip_index=0):
+    def display_frame(self, frame):
         msg = self._frame_to_msg(frame)
-        command = SHOW_STRIP_IMMEDIATE + strip_index
+        command = SHOW_STRIP_IMMEDIATE + self.strip_index
         self.sock.send(command.to_bytes(1, 'big') + msg)
 
     def display_frame_on_secondary_leds(self, frame):

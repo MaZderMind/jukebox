@@ -1,6 +1,11 @@
-from animations.animation_stars import N_LEDS
+from animations.animation import Animation
 
 
-def solid(color):
-    while True:
-        yield (color,) * N_LEDS
+class Solid(Animation):
+    def __init__(self, color):
+        self.color = color
+
+    def matrix_generator(self, rows, leds_per_row):
+        n_leds = rows * leds_per_row
+        while True:
+            yield (self.color,) * n_leds

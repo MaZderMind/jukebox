@@ -1,40 +1,50 @@
 import random
 
-from animations.animation_utils import ROWS, FPS, LEDS_PER_ROW
+from animations.animation import Animation
+from animations.animation_utils import FPS
 from animations.color_utils import clamp
 
 
-def meter(bpm=120, color_low=(0, 1, 0), color_mid=(1, 1, 0), color_high=(1, 0, 0)):
-    bps = int(bpm / 60)
-    frames_per_beat = int(FPS / bps)
-    original_distribution = [random.uniform(0.3, 1) for _ in range(ROWS)]
+class Meter(Animation):
+    def __init__(self, bpm=120, color_low=(0, 1, 0), color_mid=(1, 1, 0), color_high=(1, 0, 0)):
+        self.bpm = bpm
 
-    while True:
-        distribution = [clamp(
-            row + random.uniform(-0.3, 0.3)
-        ) for row in original_distribution]
+        bps = int(bpm / 60)
+        self.frames_per_beat = int(FPS / bps)
 
-        for _ in range(frames_per_beat):
-            frame = []
-            for row in distribution:
-                on = int(row * LEDS_PER_ROW)
-                off, high, mid, low = calculate_led_counts(on)
+        self.color_low = color_low
+        self.color_mid = color_mid
+        self.color_high = color_high
 
-                frame += ((0, 0, 0),) * off
-                frame += (color_high,) * high
-                frame += (color_mid,) * mid
-                frame += (color_low,) * low
+    def matrix_generator(self, rows, leds_per_row):
+        original_distribution = [random.uniform(0.3, 1) for _ in range(rows)]
 
+        while True:
             distribution = [clamp(
-                row - 0.025 + random.uniform(-0.05, 0.05)
-            ) for row in distribution]
+                row + random.uniform(-0.3, 0.3)
+            ) for row in original_distribution]
 
-            yield frame
+            for _ in range(self.frames_per_beat):
+                frame = []
+                for row in distribution:
+                    on = int(row * leds_per_row)
+                    off, high, mid, low = calculate_led_counts(on, leds_per_row)
+
+                    frame += ((0, 0, 0),) * off
+                    frame += (self.color_high,) * high
+                    frame += (self.color_mid,) * mid
+                    frame += (self.color_low,) * low
+
+                distribution = [clamp(
+                    row - 0.025 + random.uniform(-0.05, 0.05)
+                ) for row in distribution]
+
+                yield frame
 
 
-def calculate_led_counts(on):
+def calculate_led_counts(on, leds_per_row):
     low = min(6, on)
     mid = min(3, max(0, on - 6))
     high = max(0, on - 9)
-    off = LEDS_PER_ROW - on
+    off = leds_per_row - on
     return off, high, mid, low

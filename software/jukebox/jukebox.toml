@@ -1,23 +1,25 @@
 [spotify]
-client_id = ""
-client_secret = ""
-auth_token_storage_dir = '~/.config/jukebox/'
-username = ""
+client_id = "fe1289033f8b4255b9154e574b7c162d"
+client_secret = "cf06c4a416a741af897a73dfb23f1a74"
+auth_token_storage_dir = '/tmp'
+username = "jukebox@mazdermind.de"
 device_name = "Jukebox"
 
 [panel]
 input_device_name = "panel_keys"
-timeout_minutes = 1
-simulate = true
+timeout_minutes = 10
+simulate = false
 
 [volume]
 input_device_name = "volume_knob"
 alsa_mixer_name = "Digital"
 
 [leds]
-host = "127.0.0.1"
+host = "10.125.0.6"
 port = 5555
-simulate = true
+rows = 15
+leds_per_row = 11
+simulate = false
 
 [[leds.strips]] # blinky-cabinet (Cabinet)
 host = "10.125.0.30"
@@ -178,7 +180,8 @@ N8 = "spotify:playlist:3hhSBDksTzJjBEnIaJj1gq" # Dark Electro Swing
 
 O1 = "spotify:playlist:37i9dQZF1DWU6MDxlH7Sr1" # Happy Jazz!
 O2 = "spotify:playlist:37i9dQZF1DX0SM0LYsmbMT" # Jazz Vibes
-O3 = "spotify:playlist:37i9dQZF1DX55dNU0PWnO5" # Jazztronica
+#O3 = "spotify:playlist:37i9dQZF1DX55dNU0PWnO5" # Jazztronica
+O3 = "spotify:playlist:37i9dQZF1DZ06evNZZmaDC" # Gregory Porter
 O4 = "spotify:playlist:37i9dQZF1DX5OepaGriAIm" # Women of Jazz
 
 O5 = "spotify:playlist:37i9dQZF1DXd9rSDyQguIk" # Blues Classics
@@ -201,3 +204,4 @@ Q5 = "podcast:https://www.hoaxilla.com/podcast/hoaxilla.xml"
 Q6 = "podcast:http://web.ard.de/radiotatort/rss/podcast.xml"
 Q7 = "podcast:https://www.ard.de/static/radio/radiofeature/rss/podcast.xml"
 Q8 = "podcast:https://podcast.hr-online.de/hr-info_reportage/podcast.xml"
+

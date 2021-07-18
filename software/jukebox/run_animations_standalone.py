@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 import asyncio
 
-from animations.animation_color_wipe import vertical_wipe
+import toml
+
+from animations.animation_color_wipe import HorizontalWipe, VerticalWipe
+from animations.animation_meter import Meter
+from animations.animation_pacman import Pacman
+from animations.animation_solid import Solid
+from animations.animation_stars import Stars
 from animations.color_utils import from_hex, clamp
 from animations.direction import Direction
 from animations.sender import Sender
-from animations.timing import TimingController
+from animations.timing import TimingController, Sequencer
 
 rainbow = [
     from_hex("FF0000"),
@@ -24,16 +30,15 @@ light_colors = [
 
 
 async def main():
-    t = TimingController(Sender('jukebox'))
-    await t.run_forever(
-        vertical_wipe(rainbow, speed=0.5, direction=Direction.REVERSE)
-    )
+    conf = toml.load('jukebox.toml')
+    # t = TimingController(conf['leds'])
+    # await t.run_forever(VerticalWipe(rainbow))
 
-    # s = Sequencer(Sender('jukebox'), [
-    #    meter(),
-    #    horizontal_wipe(colors, speed=0.25, direction=Direction.FORWARD)
-    # ])
-    # await s.run()
+    s = Sequencer(conf['leds'], [
+       Meter(),
+       HorizontalWipe(rainbow, speed=0.25)
+    ])
+    await s.run()
 
     # await run_forever(stars(150, colors=((1., 1., .0),), speed=0.01))  # slow yellow stars
     # await run_forever(stars(150, colors=((1., 1., .0),), speed=0.01))  # slow stars
