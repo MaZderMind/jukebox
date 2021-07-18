@@ -21,7 +21,7 @@ class State(Enum):
 class Leds(object):
     def __init__(self, conf, animations):
         self.seq = Sequencer(conf, self._animation_selector)
-        sender = Sender(conf['host'], conf['port'])
+        sender = Sender(conf['host'], conf['port'], 1)
         self.secondary = SecondaryLeds(sender)
         self.state = State.BLACKOUT
         self.animations = animations

@@ -22,7 +22,7 @@ class Sender(object):
         self.sock.send(command.to_bytes(1, 'big') + msg)
 
     def display_frame_on_secondary_leds(self, frame):
-        self.display_frame(frame, 1)
+        self.display_frame(frame)
 
     def _frame_to_msg(self, frame):
         pixels = [to_byte(rgb_gamma(pixel)) for pixel in frame]
