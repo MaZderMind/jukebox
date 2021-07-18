@@ -17,7 +17,9 @@ alsa_mixer_name = "Digital"
 [leds]
 host = "127.0.0.1"
 port = 5555
-simulate = true
+rows = 15
+leds_per_row = 11
+simulate = false
 
 [[leds.strips]] # blinky-cabinet (Cabinet)
 host = "10.125.0.30"
