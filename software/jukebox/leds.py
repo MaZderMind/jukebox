@@ -2,7 +2,7 @@ import asyncio
 from enum import Enum, auto
 
 import named_animations
-from animations.animation_solid import solid
+from animations.animation_solid import Solid
 from animations.sender import Sender
 from animations.timing import Sequencer
 from secondary_leds import SecondaryLeds
@@ -29,12 +29,12 @@ class Leds(object):
 
     def _animation_selector(self):
         if self.state == State.BLACKOUT:
-            return solid((0, 0, 0))
+            return Solid((0, 0, 0))
         elif self.state == State.IDLE:
-            return solid((.5, .5, .5))
+            return Solid((.5, .5, .5))
         elif self.state == State.ACTIVE:
             if self._animation_name is None:
-                return solid((0, 0, 0))
+                return Solid((0, 0, 0))
 
             if isinstance(self._animation_name, list):
                 method = self._animation_name[0]
