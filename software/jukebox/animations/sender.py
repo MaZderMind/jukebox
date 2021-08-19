@@ -14,12 +14,18 @@ class Sender(object):
         self.strip_index = strip_index
 
     def blackout(self):
-        self.sock.send(CMD_BLACKOUT)
+        self._send(CMD_BLACKOUT)
 
     def display_frame(self, frame):
         msg = self._frame_to_msg(frame)
         command = SHOW_STRIP_IMMEDIATE + self.strip_index
-        self.sock.send(command.to_bytes(1, 'big') + msg)
+        self._send(command.to_bytes(1, 'big') + msg)
+
+    def _send(self, data):
+        try:
+            self.sock.send(data)
+        except ConnectionRefusedError:
+            pass
 
     def display_frame_on_secondary_leds(self, frame):
         self.display_frame(frame)
