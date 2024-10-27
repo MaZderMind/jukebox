@@ -21,7 +21,7 @@ rpi-ws281x==4.2.3
 six==1.14.0
 spotipy==2.22.1
 toml==0.10.0
-urllib3==1.26.5
+urllib3==1.26.19
 wcwidth==0.1.8
 yarl==1.4.2
 youtube-dl==2020.2.16
