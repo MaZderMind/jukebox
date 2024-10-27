@@ -5,7 +5,7 @@ import signal
 import sys
 from datetime import datetime, timedelta
 
-import toml
+import tomllib
 
 from control import Control, ControlSimulation
 from keys import Keys
@@ -20,7 +20,8 @@ class Main(object):
         parser.add_argument("--config", help="Path to the configuration.toml", default='./configuration.toml')
         args = parser.parse_args()
 
-        self.conf = conf = toml.load(args.config)
+        with open(args.config, 'rb') as f:
+                self.conf = conf = tomllib.load(f)
 
         self.keys = Keys(conf)
         self.volume = Volume(conf)
@@ -33,10 +34,10 @@ class Main(object):
     async def run(self):
         self.system_on()
         await asyncio.wait([
-            self.handle_keys(),
-            self.handle_volume(),
-            self.handle_playback_state_changes(),
-            self.handle_timeout_timer()
+            asyncio.create_task(self.handle_keys()),
+            asyncio.create_task(self.handle_volume()),
+            asyncio.create_task(self.handle_playback_state_changes()),
+            asyncio.create_task(self.handle_timeout_timer()),
         ], return_when=asyncio.FIRST_COMPLETED)
         self.system_off()
 

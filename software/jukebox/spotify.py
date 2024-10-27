@@ -30,7 +30,8 @@ class Spotify(PlaybackHandler):
             scope=Spotify.SCOPE,
             client_id=self.conf['client_id'],
             client_secret=self.conf['client_secret'],
-            redirect_uri='http://localhost/',
+            redirect_uri='http://localhost:8080/redirect',
+            open_browser=False,
             cache_path=os.path.join(cache_dir, 'spotify-token-cache-' + self.conf['username']))
 
     def _find_device(self):
